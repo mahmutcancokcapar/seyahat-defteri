@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1008003467218",
+    "project_id": "seydef-f8ad0",
+    "storage_bucket": "seydef-f8ad0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1008003467218:android:9c559e7f29697f590cea0b",
+        "android_client_info": {
+          "package_name": "com.example.seydef"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1008003467218-b09rgscj8n9m35t2pojgc678uu35toi1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgBXHeOkztcp9RhM8sVWebCbe6bhP-kHA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1008003467218-b09rgscj8n9m35t2pojgc678uu35toi1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
