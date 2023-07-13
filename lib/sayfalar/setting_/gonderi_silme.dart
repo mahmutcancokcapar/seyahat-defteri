@@ -11,18 +11,20 @@ class GonderiSilme extends StatefulWidget {
 
 class _GonderiSilmeState extends State<GonderiSilme> {
   TextEditingController silinecekBaslik = TextEditingController();
+  TextEditingController gonderiHesabi = TextEditingController();
   TextEditingController silmeAciklamasi = TextEditingController();
   TextEditingController epostaController = TextEditingController();
   bool _isButtonEnabled = false;
   String silinmekIstenenBaslik = '';
+  String hesap = '';
   String aciklama = '';
   String eposta = '';
 
-  
   _sendMail() async {
     // Android and iOS
     String mailTo = "cokcapar@mcmedya.net"; //gönderilecek mail adresi
-    String dummyMessage = "Silmek istediğim gönderinin başlığı -> $silinmekIstenenBaslik\n--------------------\n$aciklama\n--------------------\n$eposta";
+    String dummyMessage =
+        "Silmek istediğim gönderinin başlığı -> $silinmekIstenenBaslik\n--------------------\n$aciklama\n--------------------\nGönderi sahibi -> $hesap\n--------------------\n$eposta";
     String subjectText = "Gönderi Silme";
     final uri = 'mailto:$mailTo?subject=$subjectText&body=$dummyMessage';
     if (await canLaunch(uri)) {
@@ -36,7 +38,8 @@ class _GonderiSilmeState extends State<GonderiSilme> {
     setState(() {
       if (silinecekBaslik.text.isNotEmpty &&
           epostaController.text.isNotEmpty &&
-          silmeAciklamasi.text.isNotEmpty) {
+          silmeAciklamasi.text.isNotEmpty &&
+          gonderiHesabi.text.isNotEmpty) {
         _isButtonEnabled = true;
       } else {
         _isButtonEnabled = false;
@@ -53,6 +56,7 @@ class _GonderiSilmeState extends State<GonderiSilme> {
   @override
   void dispose() {
     silinecekBaslik.dispose();
+    gonderiHesabi.dispose();
     silmeAciklamasi.dispose();
     epostaController.dispose();
     super.dispose();
@@ -103,13 +107,43 @@ class _GonderiSilmeState extends State<GonderiSilme> {
                 },
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  labelText: 'Silinecek gönderinin başlığını tam haliyle giriniz',
+                  labelText:
+                      'Silinecek gönderinin başlığını tam haliyle giriniz',
                   labelStyle: GoogleFonts.indieFlower(
                     color: const Color.fromARGB(255, 130, 126, 126),
                   ),
                   suffixIcon: IconButton(
                     onPressed: () {
                       silinecekBaslik.clear();
+                    },
+                    icon: const Icon(Icons.clear_rounded),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              TextField(
+                controller: gonderiHesabi,
+                maxLines: 1,
+                maxLength: 50,
+                style: GoogleFonts.spaceGrotesk(),
+                onChanged: (val) {
+                  setState(() {
+                    hesap = val;
+                    _checkButtonState();
+                  });
+                },
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  labelText:
+                      'Gönderinin ait olduğu hesap',
+                  labelStyle: GoogleFonts.indieFlower(
+                    color: const Color.fromARGB(255, 130, 126, 126),
+                  ),
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      gonderiHesabi.clear();
                     },
                     icon: const Icon(Icons.clear_rounded),
                   ),
