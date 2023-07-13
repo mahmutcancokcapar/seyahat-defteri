@@ -91,10 +91,9 @@ class _SearchPageState extends State<SearchPage> {
                       ),
                     ),
                     subtitle: Text(
-                      document['date'] + '\n' + document['description'],
+                      document['userEmail'] + ' ~ ' + document['date'] + '\n' + document['description'],
                       style: GoogleFonts.indieFlower(
                         fontSize: 15,
-                        fontWeight: FontWeight.normal,
                       ),
                     ),
                   ),
