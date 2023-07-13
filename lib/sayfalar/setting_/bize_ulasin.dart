@@ -84,6 +84,7 @@ class _BizeUlasinState extends State<BizeUlasin> {
           borderRadius: BorderRadius.circular(30),
         ),
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
               const SizedBox(
