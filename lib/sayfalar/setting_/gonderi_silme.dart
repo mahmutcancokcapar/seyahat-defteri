@@ -21,7 +21,7 @@ class _GonderiSilmeState extends State<GonderiSilme> {
   
   _sendMail() async {
     // Android and iOS
-    String mailTo = "mahmutcancokcaparr@gmail.com"; //gönderilecek mail adresi
+    String mailTo = "cokcapar@mcmedya.net"; //gönderilecek mail adresi
     String dummyMessage = "Silmek istediğim gönderinin başlığı -> $silinmekIstenenBaslik\n--------------------\n$aciklama\n--------------------\n$eposta";
     String subjectText = "Gönderi Silme";
     final uri = 'mailto:$mailTo?subject=$subjectText&body=$dummyMessage';
