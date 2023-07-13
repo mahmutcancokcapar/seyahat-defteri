@@ -21,7 +21,7 @@ class _BizeUlasinState extends State<BizeUlasin> {
   
   _sendMail() async {
     // Android and iOS
-    String mailTo = "mahmutcancokcaparr@gmail.com"; //gönderilecek mail adresi
+    String mailTo = "cokcapar@mcmedya.net"; //gönderilecek mail adresi
     String dummyMessage = "$gorus2\n--------------------\n$eposta";
     String subjectText = "$konu2";
     final uri = 'mailto:$mailTo?subject=$subjectText&body=$dummyMessage';
