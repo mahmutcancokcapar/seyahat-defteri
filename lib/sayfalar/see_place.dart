@@ -24,7 +24,7 @@ class _SeePlaceState extends State<SeePlace> {
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.black,
         title: Text(
-          widget.doc['title'],
+          widget.doc['title'] + ' ~ ' + widget.doc['userEmail'],
           style: GoogleFonts.spaceGrotesk(),
         ),
       ),
