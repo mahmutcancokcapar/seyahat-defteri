@@ -84,6 +84,7 @@ class _GonderiSilmeState extends State<GonderiSilme> {
           borderRadius: BorderRadius.circular(30),
         ),
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
               const SizedBox(
