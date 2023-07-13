@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:seydef/google_map.dart';
+import 'package:seydef/service/auth.dart';
 import '../service/places_class.dart';
 
 class AddPlace extends StatefulWidget {
@@ -22,14 +23,50 @@ class _AddPlaceState extends State<AddPlace> {
   TextEditingController aciklamaController = TextEditingController();
   String date1 = DateFormat('dd/MM/yyyy - hh:mm aaa').format(DateTime.now());
   FirebaseAuth auth = FirebaseAuth.instance;
+  final User? user = Auth().currentUser; //changed
+  bool isButtonEnabled = false;
 
   final snackBar = SnackBar(
     content: const Text('Başarıyla paylaşıldı!'),
     action: SnackBarAction(label: 'Tamam', onPressed: () {}),
   );
+
+  void _checkButtonstate() {
+    setState(
+      () {
+        if (baslikController.text.isNotEmpty &&
+            aciklamaController.text.isNotEmpty) {
+          isButtonEnabled = true;
+        } else {
+          isButtonEnabled = false;
+        }
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    baslikController.dispose();
+    aciklamaController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
+    String userEmail = user?.email ?? 'User email'; //changed
+    void _onButtonPressed() {
+      if (isButtonEnabled) {
+        addPlace(
+          title: baslikController.text,
+          description: aciklamaController.text,
+          date: date1,
+          userEmail: userEmail,
+        );
+
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -70,6 +107,7 @@ class _AddPlaceState extends State<AddPlace> {
                     height: 10,
                   ),
                   TextField(
+                    onChanged: (value) => _checkButtonstate(),
                     controller: baslikController,
                     maxLines: 1,
                     maxLength: 50,
@@ -87,6 +125,7 @@ class _AddPlaceState extends State<AddPlace> {
                     height: 20,
                   ),
                   TextField(
+                    onChanged: (value) => _checkButtonstate(),
                     controller: aciklamaController,
                     maxLines: 1,
                     maxLength: 3000,
@@ -113,19 +152,14 @@ class _AddPlaceState extends State<AddPlace> {
                               backgroundColor:
                                   const Color.fromARGB(147, 179, 117, 186),
                             ),
-                            onPressed: () {
-                              addPlace(
-                                title: baslikController.text,
-                                description: aciklamaController.text,
-                                date: date1,
-                              );
-
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
-                            },
-                            child: Text(
-                              'Paylaş',
-                              style: GoogleFonts.spaceGrotesk(),
+                            onPressed:
+                                isButtonEnabled ? _onButtonPressed : null,
+                            child: SingleChildScrollView(
+                              physics: const BouncingScrollPhysics(),
+                              child: Text(
+                                '$userEmail olarak paylaş', // changed
+                                style: GoogleFonts.spaceGrotesk(),
+                              ),
                             ),
                           ),
                         ],
@@ -146,6 +180,7 @@ class _AddPlaceState extends State<AddPlace> {
     required String title,
     required String description,
     required String date,
+    required String userEmail,
   }) async {
     // Reference to document
     final docPlace = FirebaseFirestore.instance.collection('places').doc();
@@ -154,6 +189,7 @@ class _AddPlaceState extends State<AddPlace> {
       description: aciklamaController.text,
       title: baslikController.text,
       date: date1,
+      userEmail: userEmail,
       id: docPlace.id,
     );
 
