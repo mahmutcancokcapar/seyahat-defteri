@@ -35,6 +35,7 @@ class _HakkimizdaState extends State<Hakkimizda> {
         height: double.infinity,
         padding: const EdgeInsets.all(16),
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
               const SizedBox(height: 20,),
