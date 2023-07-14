@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:seydef/sayfalar/navbar.dart';
 import 'package:seydef/sayfalar/place_card.dart';
@@ -20,7 +21,7 @@ class _Discover extends State<Discover> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Keşfet',
+          'discoverPageAppBar'.tr,
           style: GoogleFonts.spaceGrotesk(
             color: Colors.black,
           ),
@@ -69,8 +70,8 @@ class _Discover extends State<Discover> {
                           .toList(),
                     );
                   }
-                  return const Text(
-                    'Burası şimdilik boş',
+                  return Text(
+                    'burasiBos'.tr,
                   );
                 },
               ),
