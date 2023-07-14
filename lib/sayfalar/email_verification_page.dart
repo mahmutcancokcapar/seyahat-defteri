@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:seydef/sayfalar/ana_sayfa.dart';
 
@@ -29,11 +30,11 @@ class EmailVerification extends StatelessWidget {
         builder: (context) {
           return AlertDialog(
             title: Text(
-              'Doğrulama bekleniyor...',
+              'dogrulamaDialog'.tr,
               style: GoogleFonts.spaceGrotesk(),
             ),
             content: Text(
-              'Lütfen E-Posta adresinizi doğrulayın.',
+              'dogrulamaDialog2'.tr,
               style: GoogleFonts.indieFlower(),
             ),
             actions: [
@@ -42,7 +43,7 @@ class EmailVerification extends StatelessWidget {
                   Navigator.pop(context);
                 },
                 child: Text(
-                  'Tamam',
+                  'dogrulamaDialog3'.tr,
                   style: GoogleFonts.spaceGrotesk(),
                 ),
               ),
@@ -61,7 +62,7 @@ class EmailVerification extends StatelessWidget {
           color: Colors.black,
         ),
         title: Text(
-          'E-Posta Onay',
+          'dogrulaAppBar'.tr,
           style: GoogleFonts.spaceGrotesk(
             color: Colors.black,
           ),
@@ -78,7 +79,7 @@ class EmailVerification extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                'E-Posta Adresinizi Doğrulayın',
+                'dogrulaBaslik'.tr,
                 style: GoogleFonts.spaceGrotesk(
                   fontSize: 25,
                   fontWeight: FontWeight.bold,
@@ -90,7 +91,7 @@ class EmailVerification extends StatelessWidget {
                 child: Divider(),
               ),
               Text(
-                '\'${_auth.currentUser?.email}\' adlı E-Posta adresinize, E-Postanızı doğrulamanız için bir bağlantı gönderildi. Lütfen uygulamayı kapatmadan arka plana alın ve \nE-Postanızı kontrol edip gönderilen bağlantıya tıklayın. Doğruladıktan sonra tekrar buraya gelerek \'Doğrulamayı Kontrol Et\' butonuna basın.',
+                '\'${_auth.currentUser?.email}\' ${'dogrulaAciklama'.tr}',
                 style: GoogleFonts.indieFlower(
                   fontSize: 20,
                   color: Colors.grey,
@@ -105,7 +106,7 @@ class EmailVerification extends StatelessWidget {
                 height: 8,
               ),
               Text(
-                'Doğrulama bekleniyor...',
+                'dogrulamaBekle'.tr,
                 style: GoogleFonts.spaceGrotesk(),
               ),
               const SizedBox(
@@ -117,7 +118,7 @@ class EmailVerification extends StatelessWidget {
                 ),
                 onPressed: () => _checkEmailVerification(context),
                 child: Text(
-                  'Doğrulamayı Kontrol Et',
+                  'dogrulaButton'.tr,
                   style: GoogleFonts.spaceGrotesk(),
                 ),
               ),
