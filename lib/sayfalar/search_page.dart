@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -32,7 +33,7 @@ class _SearchPageState extends State<SearchPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Arama Yapın',
+          'searchPageAppBar'.tr,
           style: GoogleFonts.spaceGrotesk(
             color: Colors.black,
           ),
@@ -62,7 +63,7 @@ class _SearchPageState extends State<SearchPage> {
                   icon: const Icon(Icons.search),
                   onPressed: _search,
                 ),
-                labelText: 'Arama yapmak için girin...',
+                labelText: 'aramaGir'.tr,
                 focusColor: Colors.black,
                 labelStyle: GoogleFonts.indieFlower(
                   color: const Color.fromARGB(255, 130, 126, 126),
@@ -91,7 +92,11 @@ class _SearchPageState extends State<SearchPage> {
                       ),
                     ),
                     subtitle: Text(
-                      document['userEmail'] + ' ~ ' + document['date'] + '\n' + document['description'],
+                      document['userEmail'] +
+                          ' ~ ' +
+                          document['date'] +
+                          '\n' +
+                          document['description'],
                       style: GoogleFonts.indieFlower(
                         fontSize: 15,
                       ),
