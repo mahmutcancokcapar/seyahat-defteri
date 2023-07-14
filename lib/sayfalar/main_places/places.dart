@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:seydef/sayfalar/discover_page.dart';
 import 'package:seydef/sayfalar/main_places/favorite_places.dart';
@@ -39,7 +40,7 @@ class _PlacesState extends State<Places> with SingleTickerProviderStateMixin {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Keşfet',
+          'discoverPageAppBar'.tr,
           style: GoogleFonts.spaceGrotesk(
             color: Colors.black,
           ),
@@ -53,12 +54,12 @@ class _PlacesState extends State<Places> with SingleTickerProviderStateMixin {
           unselectedLabelColor: Colors.blueGrey,
           labelStyle: GoogleFonts.spaceGrotesk(),
           indicatorColor: Colors.black,
-          tabs: const [
+          tabs: [
             Tab(
-              text: 'Tüm Yerler',
+              text: 'tumYerler'.tr,
             ),
             Tab(
-              text: 'Favori Yerlerim',
+              text: 'favoriYerler'.tr,
             ),
           ],
         ),
