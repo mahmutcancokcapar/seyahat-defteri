@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -18,7 +19,6 @@ class _BizeUlasinState extends State<BizeUlasin> {
   String gorus2 = '';
   String eposta = '';
 
-  
   _sendMail() async {
     // Android and iOS
     String mailTo = "cokcapar@mcmedya.net"; //gönderilecek mail adresi
@@ -66,7 +66,7 @@ class _BizeUlasinState extends State<BizeUlasin> {
           color: Colors.black,
         ),
         title: Text(
-          'Bize Ulaşın',
+          'bizeUlas'.tr,
           style: GoogleFonts.spaceGrotesk(
             color: Colors.black,
           ),
@@ -103,7 +103,7 @@ class _BizeUlasinState extends State<BizeUlasin> {
                 },
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  labelText: 'Konu',
+                  labelText: 'bizeUlasKonu'.tr,
                   labelStyle: GoogleFonts.indieFlower(
                     color: const Color.fromARGB(255, 130, 126, 126),
                   ),
@@ -131,8 +131,7 @@ class _BizeUlasinState extends State<BizeUlasin> {
                 },
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  labelText:
-                      'Görüş, öneri veya şikayetiniz',
+                  labelText: 'bizeUlasAciklama'.tr,
                   labelStyle: GoogleFonts.indieFlower(
                     color: const Color.fromARGB(255, 130, 126, 126),
                   ),
@@ -161,7 +160,7 @@ class _BizeUlasinState extends State<BizeUlasin> {
                 },
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  labelText: 'E-Posta adresiniz',
+                  labelText: 'bizeUlasEposta'.tr,
                   labelStyle: GoogleFonts.indieFlower(
                     color: const Color.fromARGB(255, 130, 126, 126),
                   ),
@@ -182,7 +181,7 @@ class _BizeUlasinState extends State<BizeUlasin> {
                 ),
                 onPressed: _isButtonEnabled ? _onButtonPressed : null,
                 child: Text(
-                  'Gönder',
+                  'bizeUlasButton'.tr,
                   style: GoogleFonts.spaceGrotesk(),
                 ),
               ),
