@@ -84,7 +84,12 @@ Widget placeCard(Function()? onTap, QueryDocumentSnapshot doc) {
               ),
             ),
             const Padding(
-              padding: EdgeInsets.only(left: 50, right: 50, top:5, bottom: 10,),
+              padding: EdgeInsets.only(
+                left: 50,
+                right: 50,
+                top: 5,
+                bottom: 10,
+              ),
               child: Divider(),
             ),
             SingleChildScrollView(
@@ -108,7 +113,12 @@ Widget placeCard(Function()? onTap, QueryDocumentSnapshot doc) {
               ),
             ),
             const Padding(
-              padding: EdgeInsets.only(left: 50, right: 50, top:5, bottom: 10,),
+              padding: EdgeInsets.only(
+                left: 50,
+                right: 50,
+                top: 5,
+                bottom: 10,
+              ),
               child: Divider(),
             ),
             SingleChildScrollView(
