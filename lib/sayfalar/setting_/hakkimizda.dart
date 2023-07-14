@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Hakkimizda extends StatefulWidget {
@@ -17,7 +18,7 @@ class _HakkimizdaState extends State<Hakkimizda> {
           color: Colors.black,
         ),
         title: Text(
-          'Hakkımızda',
+          'hakkimizda'.tr,
           style: GoogleFonts.spaceGrotesk(
             color: Colors.black,
           ),
@@ -33,14 +34,16 @@ class _HakkimizdaState extends State<Hakkimizda> {
         margin: const EdgeInsets.all(16),
         width: double.infinity,
         height: double.infinity,
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(8),
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
-              const SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
               Text(
-                "'Seyahat Defteri' herkesin anonim şekilde paylaşım yapabileceği, insanların gezdiği gördüğü yerleri diğerleriyle paylaşabileceği, herkesin bir yerler hakkında kolayca bilgi sahibi olabileceği interaktif bir uygulamadır. 'Yeni Bir Yer Ekleyin' kısmından paylaşmak istediğiniz yerin bilgilerini girin ve diğerleriyle paylaşın. 'Keşfet' kısmında size ve diğerlerine ait paylaşımları görebilirsiniz. Özel bilgilerinizi paylaşmamayı unutmayın. 'Arama' kısmında gitmek istediğiniz fakat önceden bilgi edinmek istediğiniz yerleri aratarak o yerler hakkında bilgi edinebilir veya diğer insanların görüşlerini öğrenebilirsiniz. Sakıncalı, rendice edici veya kötü içerikli paylaşımlar görürseniz; yanlışlıkla size özel bir yer paylaşmışsanız ve kaldırılmasını istiyorsanız 'Ayarlar' kısmındaki 'Gönderi Silme' kısmından bize ulaşabilirsiniz. Talebiniz en geç 1 gün içinde değerlendirilip size dönüş yapılacaktır. Görüş, öneri ve şikayetleriniz için 'Ayarlar' kısmındaki 'Bize Ulaşın' sekmesine uğrayabilirsiniz. Her gün büyümeye ve gelişmeye devam ediyoruz. Bize destek olmak için sosyal medya hesaplarımızı takip edebilirsiniz.",
+                'hakkimizdaAciklama'.tr,
                 style: GoogleFonts.indieFlower(
                   fontSize: 20,
                 ),
