@@ -1,5 +1,6 @@
 import 'dart:core';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:seydef/sayfalar/email_verification_page.dart';
 import 'package:seydef/sayfalar/login_page.dart';
@@ -19,6 +20,7 @@ class _RegisterPageState extends State<RegisterPage> {
   TextEditingController rpasswordController = TextEditingController();
   bool _isLoading = false;
   String? errorMessage = '';
+
 
   Future<void> registerUser(BuildContext context) async {
     try {
@@ -42,18 +44,18 @@ class _RegisterPageState extends State<RegisterPage> {
           builder: (context) {
             return AlertDialog(
               title: Text(
-                'Kayıt Başarısız',
+                'registerDialog1'.tr,
                 style: GoogleFonts.spaceGrotesk(),
               ),
               content: Text(
-                'Bir hata oluştu, lütfen tekrar deneyiniz.',
+                'registerDialog2'.tr,
                 style: GoogleFonts.indieFlower(),
               ),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.pop(context),
                   child: Text(
-                    'Tamam',
+                    'registerDialog3'.tr,
                     style: GoogleFonts.spaceGrotesk(),
                   ),
                 ),
@@ -75,7 +77,7 @@ class _RegisterPageState extends State<RegisterPage> {
               height: 50,
             ),
             Text(
-              'Seyahat\nDefterinize',
+              'baslik'.tr,
               style: GoogleFonts.indieFlower(
                 fontSize: 40,
               ),
@@ -85,7 +87,7 @@ class _RegisterPageState extends State<RegisterPage> {
               height: 10,
             ),
             Text(
-              'HOŞGELDİNİZ!',
+              'hg'.tr,
               style: GoogleFonts.spaceGrotesk(
                 fontSize: 50,
               ),
@@ -99,7 +101,7 @@ class _RegisterPageState extends State<RegisterPage> {
               keyboardType: TextInputType.emailAddress,
               style: GoogleFonts.indieFlower(),
               decoration: InputDecoration(
-                labelText: 'E-mail adresiniz',
+                labelText: 'emailAdres'.tr,
                 focusColor: Colors.black,
                 labelStyle: GoogleFonts.indieFlower(
                   color: const Color.fromARGB(255, 130, 126, 126),
@@ -116,7 +118,7 @@ class _RegisterPageState extends State<RegisterPage> {
               keyboardType: TextInputType.number,
               maxLength: 6,
               decoration: InputDecoration(
-                labelText: 'Şifreniz',
+                labelText: 'sifre'.tr,
                 focusColor: Colors.black,
                 labelStyle: GoogleFonts.indieFlower(
                   color: const Color.fromARGB(255, 130, 126, 126),
@@ -129,31 +131,14 @@ class _RegisterPageState extends State<RegisterPage> {
             _isLoading
                 ? const CircularProgressIndicator()
                 : ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(147, 179, 117, 186),
+                    ),
                     onPressed: () {
                       registerUser(context);
-                      //createUser();
-                      /*
-                      setState(() {
-                        _isLoading = true;
-                      });
-                      await signUp(
-                          userEmail: remailController.text,
-                          userPassword: rpasswordController.text,
-                          context: context);
-                      if (remailController.text.isNotEmpty) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (ctx) => const EmailVerification(),
-                          ),
-                        );
-                      }
-                      setState(() {
-                        _isLoading = false;
-                      });*/
                     },
                     child: Text(
-                      'Kayıt Ol',
+                      'kayitOl'.tr,
                       style: GoogleFonts.spaceGrotesk(fontSize: 20),
                     ),
                   ),
@@ -164,7 +149,7 @@ class _RegisterPageState extends State<RegisterPage> {
               children: [
                 const Spacer(),
                 Text(
-                  'Zaten bi hesabınız mı var?',
+                  'hesapVar'.tr,
                   style: GoogleFonts.indieFlower(fontSize: 15),
                 ),
                 TextButton(
@@ -177,7 +162,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     );
                   },
                   child: Text(
-                    'Giriş Yap',
+                    'giris'.tr,
                     style: GoogleFonts.indieFlower(
                         color: Colors.blue, fontSize: 15),
                   ),
