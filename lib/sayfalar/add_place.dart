@@ -154,12 +154,10 @@ class _AddPlaceState extends State<AddPlace> {
                             ),
                             onPressed:
                                 isButtonEnabled ? _onButtonPressed : null,
-                            child: SingleChildScrollView(
-                              physics: const BouncingScrollPhysics(),
-                              child: Text(
-                                '$userEmail olarak paylaş', // changed
-                                style: GoogleFonts.spaceGrotesk(),
-                              ),
+                            child: Text(
+                              '$userEmail olarak paylaş', // changed
+                              style: GoogleFonts.spaceGrotesk(),
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         ],
