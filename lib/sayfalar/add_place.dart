@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
@@ -27,8 +28,8 @@ class _AddPlaceState extends State<AddPlace> {
   bool isButtonEnabled = false;
 
   final snackBar = SnackBar(
-    content: const Text('Başarıyla paylaşıldı!'),
-    action: SnackBarAction(label: 'Tamam', onPressed: () {}),
+    content: Text('snackBarContent'.tr),
+    action: SnackBarAction(label: 'snacbarAction'.tr, onPressed: () {}),
   );
 
   void _checkButtonstate() {
@@ -71,7 +72,7 @@ class _AddPlaceState extends State<AddPlace> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Yeni Bir Yer Ekleyin',
+          'addPlaceAppBar'.tr,
           style: GoogleFonts.spaceGrotesk(
             color: Colors.black,
           ),
@@ -113,7 +114,7 @@ class _AddPlaceState extends State<AddPlace> {
                     maxLength: 50,
                     style: GoogleFonts.spaceGrotesk(),
                     decoration: InputDecoration(
-                      labelText: "Başlık...",
+                      labelText: 'addPlaceBaslik'.tr,
                       border: const OutlineInputBorder(),
                       focusColor: Colors.black,
                       labelStyle: GoogleFonts.indieFlower(
@@ -131,7 +132,7 @@ class _AddPlaceState extends State<AddPlace> {
                     maxLength: 3000,
                     style: GoogleFonts.spaceGrotesk(),
                     decoration: InputDecoration(
-                      labelText: "Bir açıklama ekleyebilirsiniz...",
+                      labelText: 'addPlaceAciklama'.tr,
                       border: const OutlineInputBorder(),
                       focusColor: Colors.black,
                       labelStyle: GoogleFonts.indieFlower(
@@ -155,7 +156,7 @@ class _AddPlaceState extends State<AddPlace> {
                             onPressed:
                                 isButtonEnabled ? _onButtonPressed : null,
                             child: Text(
-                              '$userEmail olarak paylaş', // changed
+                              '$userEmail ${'addPlaceButton'.tr}', // changed
                               style: GoogleFonts.spaceGrotesk(),
                               overflow: TextOverflow.ellipsis,
                             ),
