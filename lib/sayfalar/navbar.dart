@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../service/auth.dart';
@@ -53,7 +54,7 @@ class NavBar extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.exit_to_app),
             title: Text(
-              'Çıkış Yap',
+              'navBarCikis'.tr,
               style: GoogleFonts.spaceGrotesk(),
             ),
             onTap: signOut,
