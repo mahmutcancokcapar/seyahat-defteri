@@ -31,7 +31,7 @@ class _Discover extends State<Discover> {
       ),
       drawer: NavBar(),
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,37 +80,4 @@ class _Discover extends State<Discover> {
       ),
     );
   }
-
-  //Bottom Sheet
-  /*
-  Future _displayBottomSheet(BuildContext context) {
-    return showModalBottomSheet(
-      context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(30),
-        ),
-      ),
-      barrierColor: Colors.black87.withOpacity(0.5),
-      builder: (context) => SizedBox(
-        height: 400,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(
-              widget.doc['title'],
-              style: GoogleFonts.spaceGrotesk(
-                textStyle: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                  fontSize: 25,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }*/
 }
