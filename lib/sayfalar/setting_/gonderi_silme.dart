@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -70,7 +71,7 @@ class _GonderiSilmeState extends State<GonderiSilme> {
           color: Colors.black,
         ),
         title: Text(
-          'Gönderi Silme',
+          'gonderiSilme'.tr,
           style: GoogleFonts.spaceGrotesk(
             color: Colors.black,
           ),
@@ -107,8 +108,7 @@ class _GonderiSilmeState extends State<GonderiSilme> {
                 },
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  labelText:
-                      'Silinecek gönderinin başlığını tam haliyle giriniz',
+                  labelText: 'gonderiSilBaslik'.tr,
                   labelStyle: GoogleFonts.indieFlower(
                     color: const Color.fromARGB(255, 130, 126, 126),
                   ),
@@ -136,8 +136,7 @@ class _GonderiSilmeState extends State<GonderiSilme> {
                 },
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  labelText:
-                      'Gönderinin ait olduğu hesap',
+                  labelText: 'gonderiSilHesap'.tr,
                   labelStyle: GoogleFonts.indieFlower(
                     color: const Color.fromARGB(255, 130, 126, 126),
                   ),
@@ -165,8 +164,7 @@ class _GonderiSilmeState extends State<GonderiSilme> {
                 },
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  labelText:
-                      'Neden silinmesini istediğini birkaç cümleyle açıklayın',
+                  labelText: 'gonderiSilAciklama'.tr,
                   labelStyle: GoogleFonts.indieFlower(
                     color: const Color.fromARGB(255, 130, 126, 126),
                   ),
@@ -195,7 +193,7 @@ class _GonderiSilmeState extends State<GonderiSilme> {
                 },
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  labelText: 'E-Posta adresiniz',
+                  labelText: 'gonderiSilEposta'.tr,
                   labelStyle: GoogleFonts.indieFlower(
                     color: const Color.fromARGB(255, 130, 126, 126),
                   ),
@@ -216,7 +214,7 @@ class _GonderiSilmeState extends State<GonderiSilme> {
                 ),
                 onPressed: _isButtonEnabled ? _onButtonPressed : null,
                 child: Text(
-                  'Gönder',
+                  'gonderiSilButton'.tr,
                   style: GoogleFonts.spaceGrotesk(),
                 ),
               ),
