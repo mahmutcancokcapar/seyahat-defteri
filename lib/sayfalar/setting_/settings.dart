@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:seydef/sayfalar/setting_/bize_ulasin.dart';
 import 'package:seydef/sayfalar/setting_/gonderi_silme.dart';
@@ -12,19 +13,19 @@ final Uri twitter = Uri.parse(
 
 Future<void> _launchURLinsta() async {
   if (!await launchUrl(instagram)) {
-    throw 'Could not launc $instagram';
+    throw 'Could not launch $instagram';
   }
 }
 
 Future<void> _launchURLfacebook() async {
   if (!await launchUrl(facebook)) {
-    throw 'Could not launc $facebook';
+    throw 'Could not launch $facebook';
   }
 }
 
 Future<void> _launchURLtwitter() async {
   if (!await launchUrl(twitter)) {
-    throw 'Could not launc $twitter';
+    throw 'Could not launch $twitter';
   }
 }
 
@@ -42,7 +43,7 @@ class _SettingsState extends State<Settings> {
       appBar: AppBar(
         elevation: 0,
         title: Text(
-          'Ayarlar',
+          'settingsPageAppBar'.tr,
           style: GoogleFonts.spaceGrotesk(
             color: Colors.black,
           ),
@@ -72,7 +73,7 @@ class _SettingsState extends State<Settings> {
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: Text(
-                  'Hakkımızda',
+                  'hakkimizda'.tr,
                   style: GoogleFonts.spaceGrotesk(fontSize: 20),
                 ),
               ),
@@ -97,7 +98,7 @@ class _SettingsState extends State<Settings> {
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: Text(
-                  'Gönderi Silme',
+                  'gonderiSilme'.tr,
                   style: GoogleFonts.spaceGrotesk(fontSize: 20),
                 ),
               ),
@@ -122,7 +123,7 @@ class _SettingsState extends State<Settings> {
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: Text(
-                  'Bize Ulaşın',
+                  'bizeUlas'.tr,
                   style: GoogleFonts.spaceGrotesk(fontSize: 20),
                 ),
               ),
@@ -144,7 +145,7 @@ class _SettingsState extends State<Settings> {
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: Text(
-                  'Sosyal Medya Hesaplarımız',
+                  'sosyalMedya'.tr,
                   style: GoogleFonts.spaceGrotesk(fontSize: 20),
                 ),
               ),
@@ -154,8 +155,6 @@ class _SettingsState extends State<Settings> {
       ),
     );
   }
-
-  
 
   Future _displayBottomSheet(BuildContext context) {
     return showModalBottomSheet(
