@@ -42,7 +42,7 @@ class _SeePlaceState extends State<SeePlace> {
                 child: Container(
                   margin: const EdgeInsets.only(left: 20, top: 20, right: 20),
                   width: mediaQuery.size.width * 1,
-                  height: mediaQuery.size.height * 3.3,
+                  height: mediaQuery.size.height * 3.5,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
                   ),
