@@ -16,8 +16,10 @@ class Discover extends StatefulWidget {
 class _Discover extends State<Discover> {
   final CollectionReference collectionReference =
       FirebaseFirestore.instance.collection('places');
+      
   @override
   Widget build(BuildContext context) {
+    var mediaQuery = MediaQuery.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -70,8 +72,19 @@ class _Discover extends State<Discover> {
                           .toList(),
                     );
                   }
-                  return Text(
-                    'burasiBos'.tr,
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      margin: const EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(8),
+                      width: mediaQuery.size.width * 1,
+                      height: mediaQuery.size.height * 1,
+                      child: Text(
+                        'burasiBos'.tr,
+                        style: GoogleFonts.spaceGrotesk(),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                   );
                 },
               ),
