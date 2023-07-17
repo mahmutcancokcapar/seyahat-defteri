@@ -22,13 +22,16 @@ class _SeePlaceState extends State<SeePlace> {
         elevation: 0,
         centerTitle: true,
         backgroundColor: Colors.transparent,
-        foregroundColor: Colors.black,
+        foregroundColor: Colors.grey.shade700,
         title: Text(
-          widget.doc['title'] + ' ~ ' + widget.doc['userEmail'],
-          style: GoogleFonts.spaceGrotesk(),
+          widget.doc['userEmail'],
+          style: GoogleFonts.spaceGrotesk(
+            color: Colors.grey.shade700,
+          ),
         ),
       ),
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.all(5),
           child: Column(
@@ -39,7 +42,7 @@ class _SeePlaceState extends State<SeePlace> {
                 child: Container(
                   margin: const EdgeInsets.only(left: 20, top: 20, right: 20),
                   width: mediaQuery.size.width * 1,
-                  height: mediaQuery.size.height * 3,
+                  height: mediaQuery.size.height * 2.5,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
                   ),
@@ -49,9 +52,6 @@ class _SeePlaceState extends State<SeePlace> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        const SizedBox(
-                          height: 15,
-                        ),
                         Text(
                           widget.doc['title'],
                           style: GoogleFonts.spaceGrotesk(
@@ -69,8 +69,8 @@ class _SeePlaceState extends State<SeePlace> {
                         Text(
                           widget.doc['description'],
                           style: GoogleFonts.indieFlower(
-                            textStyle: const TextStyle(
-                              color: Colors.grey,
+                            textStyle: TextStyle(
+                              color: Colors.grey.shade700,
                               fontSize: 20,
                             ),
                           ),
