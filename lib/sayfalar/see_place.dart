@@ -42,7 +42,7 @@ class _SeePlaceState extends State<SeePlace> {
                 child: Container(
                   margin: const EdgeInsets.only(left: 20, top: 20, right: 20),
                   width: mediaQuery.size.width * 1,
-                  height: mediaQuery.size.height * 2.5,
+                  height: mediaQuery.size.height * 3.3,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
                   ),
@@ -54,11 +54,13 @@ class _SeePlaceState extends State<SeePlace> {
                       children: [
                         Text(
                           widget.doc['title'],
+                          textAlign: TextAlign.center,
                           style: GoogleFonts.spaceGrotesk(
                             textStyle: const TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
                               fontSize: 25,
+                              
                             ),
                           ),
                         ),
@@ -68,6 +70,7 @@ class _SeePlaceState extends State<SeePlace> {
                         ),
                         Text(
                           widget.doc['description'],
+                          textAlign: TextAlign.center,
                           style: GoogleFonts.indieFlower(
                             textStyle: TextStyle(
                               color: Colors.grey.shade700,
