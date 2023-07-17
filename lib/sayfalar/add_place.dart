@@ -29,7 +29,7 @@ class _AddPlaceState extends State<AddPlace> {
 
   final snackBar = SnackBar(
     content: Text('snackBarContent'.tr),
-    action: SnackBarAction(label: 'snacbarAction'.tr, onPressed: () {}),
+    action: SnackBarAction(label: 'snackBarAction'.tr, onPressed: () {}),
   );
 
   void _checkButtonstate() {
@@ -156,9 +156,10 @@ class _AddPlaceState extends State<AddPlace> {
                             onPressed:
                                 isButtonEnabled ? _onButtonPressed : null,
                             child: Text(
-                              '$userEmail ${'addPlaceButton'.tr}', // changed
+                              '$userEmail\n${'addPlaceButton'.tr}', // changed
                               style: GoogleFonts.spaceGrotesk(),
                               overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.center,
                             ),
                           ),
                         ],
