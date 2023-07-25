@@ -2,14 +2,22 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:seydef/sayfalar/login_page.dart';
 
 import '../service/auth.dart';
 
 class NavBar extends StatelessWidget {
   NavBar({super.key});
 
-  Future<void> signOut() async {
-    await Auth().signOut();
+  Future<void> signOut(BuildContext context) async {
+    await Auth().signOut().then(
+          (value) => Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const LoginPage(),
+            ),
+          ),
+        );
   }
 
   final User? user = Auth().currentUser;
@@ -57,7 +65,9 @@ class NavBar extends StatelessWidget {
               'navBarCikis'.tr,
               style: GoogleFonts.spaceGrotesk(),
             ),
-            onTap: signOut,
+            onTap: () async {
+              await signOut(context);
+            },
           ),
         ],
       ),
