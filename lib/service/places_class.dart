@@ -5,6 +5,7 @@ class Places {
   final String date;
   final String userEmail;
   final String kayitliKonum;
+  final String sehir;
 
   Places({
     required this.date,
@@ -13,6 +14,7 @@ class Places {
     required this.description,
     required this.userEmail,
     required this.kayitliKonum,
+    required this.sehir,
   });
 
   Map<String, dynamic> toJson() => {
@@ -22,6 +24,7 @@ class Places {
         'date': date,
         'userEmail': userEmail, //changed
         'kayitliKonum': kayitliKonum,
+        'sehir': sehir,
       };
 
   static Places fromJson(Map<String, dynamic> json) => Places(
@@ -31,5 +34,6 @@ class Places {
         date: json['date'],
         userEmail: json['userEmail'], //changed
         kayitliKonum: json['kayitliKonum'],
+        sehir: json['sehir'],
       );
 }
