@@ -17,13 +17,6 @@ class Discover extends StatefulWidget {
 class _DiscoverState extends State<Discover> {
   String? userUID;
 
-  @override
-  void initState() {
-    super.initState();
-    // Kullanıcının UID'sini alın
-    _getUserUID();
-  }
-
   Future<void> _getUserUID() async {
     final currentUser = FirebaseAuth.instance.currentUser;
     if (currentUser != null) {
@@ -31,6 +24,100 @@ class _DiscoverState extends State<Discover> {
         userUID = currentUser.uid;
       });
     }
+  }
+
+  String? selectedValue;
+
+  List<String> sehirler = [
+    'Ankara',
+    'İstanbul',
+    'Gaziantep',
+    'Adana',
+    'Adıyaman',
+    'Afyonkarahisar',
+    'Ağrı',
+    'Amasya',
+    'Antalya',
+    'Artvin',
+    'Aydın',
+    'Balıkesir',
+    'Bilecik',
+    'Bingöl',
+    'Bitlis',
+    'Bolu',
+    'Burdur',
+    'Bursa',
+    'Çanakkale',
+    'Çankırı',
+    'Çorum',
+    'Denizli',
+    'Diyarbakır',
+    'Edirne',
+    'Elazığ',
+    'Erzincan',
+    'Erzurum',
+    'Eskişehir',
+    'Giresun',
+    'Gümüşhane',
+    'Hakkari',
+    'Hatay',
+    'Isparta',
+    'Mersin',
+    'İzmir',
+    'Kars',
+    'Kastamonu',
+    'Kayseri',
+    'Kırklareli',
+    'Kırşehir',
+    'Kocaeli',
+    'Konya',
+    'Kütahya',
+    'Malatya',
+    'Manisa',
+    'Kahramanmaraş',
+    'Mardin',
+    'Muğla',
+    'Muş',
+    'Nevşehir',
+    'Niğde',
+    'Ordu',
+    'Rize',
+    'Sakarya',
+    'Samsun',
+    'Siirt',
+    'Sinop',
+    'Sivas',
+    'Tekirdağ',
+    'Tokat',
+    'Trabzon',
+    'Tunceli',
+    'Şanlıurfa',
+    'Uşak',
+    'Van',
+    'Yozgat',
+    'Zonguldak',
+    'Aksaray',
+    'Bayburt',
+    'Karaman',
+    'Kırıkkale',
+    'Batman',
+    'Şırnak',
+    'Bartın',
+    'Ardahan',
+    'Iğdır',
+    'Yalova',
+    'Karabük',
+    'Kilis',
+    'Osmaniye',
+    'Düzce',
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    // Kullanıcının UID'sini alın
+    _getUserUID();
+    selectedValue = sehirler[0];
   }
 
   Future _showBottomSheet(BuildContext context) {
@@ -379,7 +466,11 @@ class _DiscoverState extends State<Discover> {
                           child: Column(
                             children: [
                               Container(
-                                child: Icon(Icons.donut_small_outlined, size: 50, color: Colors.deepPurple,),
+                                child: Icon(
+                                  Icons.donut_small_outlined,
+                                  size: 50,
+                                  color: Colors.deepPurple,
+                                ),
                                 width: 50,
                                 height: 50,
                                 decoration: BoxDecoration(
@@ -406,7 +497,11 @@ class _DiscoverState extends State<Discover> {
                           child: Column(
                             children: [
                               Container(
-                                child: Icon(Icons.add, size: 50, color: Colors.deepPurple,),
+                                child: Icon(
+                                  Icons.add,
+                                  size: 50,
+                                  color: Colors.deepPurple,
+                                ),
                                 width: 50,
                                 height: 50,
                                 decoration: BoxDecoration(
@@ -434,7 +529,11 @@ class _DiscoverState extends State<Discover> {
                           child: Column(
                             children: [
                               Container(
-                                child: Icon(Icons.search, size: 50,color: Colors.deepPurple,),
+                                child: Icon(
+                                  Icons.search,
+                                  size: 50,
+                                  color: Colors.deepPurple,
+                                ),
                                 width: 50,
                                 height: 50,
                                 decoration: BoxDecoration(
@@ -461,7 +560,11 @@ class _DiscoverState extends State<Discover> {
                           child: Column(
                             children: [
                               Container(
-                                child: Icon(Icons.contact_support_outlined, size: 50, color: Colors.deepPurple,),
+                                child: Icon(
+                                  Icons.contact_support_outlined,
+                                  size: 50,
+                                  color: Colors.deepPurple,
+                                ),
                                 width: 50,
                                 height: 50,
                                 decoration: BoxDecoration(
@@ -488,7 +591,11 @@ class _DiscoverState extends State<Discover> {
                           child: Column(
                             children: [
                               Container(
-                                child: Icon(Icons.person_outline_rounded, size: 50, color: Colors.deepPurple,),
+                                child: Icon(
+                                  Icons.person_outline_rounded,
+                                  size: 50,
+                                  color: Colors.deepPurple,
+                                ),
                                 width: 50,
                                 height: 50,
                                 decoration: BoxDecoration(
@@ -512,10 +619,48 @@ class _DiscoverState extends State<Discover> {
               ),
             ),
             const Divider(),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 8,
+                right: 8,
+              ),
+              child: SizedBox(
+                width: double.infinity,
+                child: DropdownButtonFormField<String>(
+                  decoration: const InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.grey,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ),
+                  isExpanded: true,
+                  items: sehirler.map((String value) {
+                    return DropdownMenuItem(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  onChanged: (newValue) {
+                    setState(() {
+                      selectedValue = newValue!;
+                    });
+                  },
+                  value: selectedValue,
+                ),
+              ),
+            ),
             Expanded(
               child: StreamBuilder<QuerySnapshot>(
-                stream:
-                    FirebaseFirestore.instance.collection('places').snapshots(),
+                stream: FirebaseFirestore.instance
+                    .collection('places')
+                    .where('sehir', isEqualTo: selectedValue.toString())
+                    .snapshots(),
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(
@@ -545,21 +690,22 @@ class _DiscoverState extends State<Discover> {
                               ))
                           .toList(),
                     );
-                  }
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      margin: const EdgeInsets.all(16),
-                      padding: const EdgeInsets.all(8),
-                      width: mediaQuery.size.width * 1,
-                      height: mediaQuery.size.height * 1,
-                      child: Text(
-                        'burasiBos'.tr,
-                        style: GoogleFonts.spaceGrotesk(),
-                        textAlign: TextAlign.center,
+                  } else {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        margin: const EdgeInsets.all(16),
+                        padding: const EdgeInsets.all(8),
+                        width: mediaQuery.size.width * 1,
+                        height: mediaQuery.size.height * 1,
+                        child: Text(
+                          'burasiBos'.tr,
+                          style: GoogleFonts.spaceGrotesk(),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
-                    ),
-                  );
+                    );
+                  }
                 },
               ),
             ),
