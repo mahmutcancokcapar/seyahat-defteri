@@ -41,6 +41,98 @@ class _AddPlaceState extends State<AddPlace> {
     super.dispose();
   }
 
+  String? selectedValue;
+
+  List<String> sehirler = [
+    'Adana',
+    'Adıyaman',
+    'Afyonkarahisar',
+    'Ağrı',
+    'Amasya',
+    'Ankara',
+    'Antalya',
+    'Artvin',
+    'Aydın',
+    'Balıkesir',
+    'Bilecik',
+    'Bingöl',
+    'Bitlis',
+    'Bolu',
+    'Burdur',
+    'Bursa',
+    'Çanakkale',
+    'Çankırı',
+    'Çorum',
+    'Denizli',
+    'Diyarbakır',
+    'Edirne',
+    'Elazığ',
+    'Erzincan',
+    'Erzurum',
+    'Eskişehir',
+    'Gaziantep',
+    'Giresun',
+    'Gümüşhane',
+    'Hakkari',
+    'Hatay',
+    'Isparta',
+    'Mersin',
+    'İstanbul',
+    'İzmir',
+    'Kars',
+    'Kastamonu',
+    'Kayseri',
+    'Kırklareli',
+    'Kırşehir',
+    'Kocaeli',
+    'Konya',
+    'Kütahya',
+    'Malatya',
+    'Manisa',
+    'Kahramanmaraş',
+    'Mardin',
+    'Muğla',
+    'Muş',
+    'Nevşehir',
+    'Niğde',
+    'Ordu',
+    'Rize',
+    'Sakarya',
+    'Samsun',
+    'Siirt',
+    'Sinop',
+    'Sivas',
+    'Tekirdağ',
+    'Tokat',
+    'Trabzon',
+    'Tunceli',
+    'Şanlıurfa',
+    'Uşak',
+    'Van',
+    'Yozgat',
+    'Zonguldak',
+    'Aksaray',
+    'Bayburt',
+    'Karaman',
+    'Kırıkkale',
+    'Batman',
+    'Şırnak',
+    'Bartın',
+    'Ardahan',
+    'Iğdır',
+    'Yalova',
+    'Karabük',
+    'Kilis',
+    'Osmaniye',
+    'Düzce',
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    selectedValue = sehirler[0];
+  }
+
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
@@ -62,6 +154,7 @@ class _AddPlaceState extends State<AddPlace> {
           date: date1,
           userEmail: userEmail,
           kayitliKonum: kayitliKonum,
+          sehir: selectedValue,
         );
 
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -72,7 +165,8 @@ class _AddPlaceState extends State<AddPlace> {
       setState(
         () {
           if (baslikController.text.isNotEmpty &&
-              aciklamaController.text.isNotEmpty) {
+              aciklamaController.text.isNotEmpty &&
+              selectedValue.toString().isNotEmpty) {
             isButtonEnabled = true;
           } else {
             isButtonEnabled = false;
@@ -239,6 +333,37 @@ class _AddPlaceState extends State<AddPlace> {
                         const SizedBox(
                           height: 20,
                         ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: DropdownButtonFormField<String>(
+                            decoration: const InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ),
+                            isExpanded: true,
+                            items: sehirler.map((String value) {
+                              return DropdownMenuItem(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                            onChanged: (newValue) {
+                              setState(() {
+                                selectedValue = newValue!;
+                              });
+                            },
+                            value: selectedValue,
+                          ),
+                        ),
+                        const SizedBox(height: 20,),
                         Row(
                           children: [
                             const Spacer(),
@@ -283,6 +408,7 @@ class _AddPlaceState extends State<AddPlace> {
     required String date,
     required String userEmail,
     required String kayitliKonum,
+    required String? sehir,
   }) async {
     final user = FirebaseAuth.instance.currentUser;
 
@@ -297,6 +423,7 @@ class _AddPlaceState extends State<AddPlace> {
         userEmail: userEmail,
         id: docPlace.id,
         kayitliKonum: kayitliKonum,
+        sehir: selectedValue.toString(),
       );
 
       final json = places.toJson();
