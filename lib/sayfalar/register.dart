@@ -18,91 +18,76 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
 class _RegisterPageState extends State<RegisterPage> {
   TextEditingController remailController = TextEditingController();
   TextEditingController rpasswordController = TextEditingController();
+  TextEditingController rpasswordAgainController = TextEditingController();
   bool _isLoading = false;
-  String? errorMessage = '';
-
-  /*
-  static Future<User?> signUp({
-    required String userEmail,
-    required String userPassword,
-    required BuildContext context,
-  }) async {
-    try {
-      UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: userEmail,
-        password: userPassword,
-      );
-      return userCredential.user;
-    } on FirebaseAuthException catch (e) {
-      debugPrint(
-        e.toString(),
-      );
-      return null;
-    }
-  }
-  */
-
-  /*
-  Future<void> createUser() async {
-    try {
-      await Auth().createUser(
-        email: remailController.text,
-        password: rpasswordController.text,
-      );
-    } on FirebaseAuthException catch (e) {
-      setState(() {
-        errorMessage = e.message;
-      });
-    }
-  }
-  */
+  String errorMessage = '';
+  bool isObsecure = true;
 
   Future<void> registerUser(BuildContext context) async {
     try {
-      UserCredential userCredential =
-          await _auth.createUserWithEmailAndPassword(
-        email: remailController.text.trim(),
-        password: rpasswordController.text.trim(),
-      );
-      await userCredential.user!.sendEmailVerification();
-      // Kayıt başarılı, doğrulama epostası gönderildi
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => EmailVerification(),
-        ),
-      );
+      if (rpasswordController.text == rpasswordAgainController.text) {
+        UserCredential userCredential =
+            await _auth.createUserWithEmailAndPassword(
+          email: remailController.text.trim(),
+          password: rpasswordController.text.trim(),
+        );
+        await userCredential.user!.sendEmailVerification();
+        // Kayıt başarılı, doğrulama epostası gönderildi
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => EmailVerification(),
+          ),
+        );
+      } else {
+        errorMessage = 'sifreTekrar'.tr;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(errorMessage),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      }
     } catch (e) {
       // Hata oldu, kayıt başarısız
       showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Text(
-                'registerDialog1'.tr,
-                style: GoogleFonts.spaceGrotesk(),
-              ),
-              content: Text(
-                'registerDialog2'.tr,
-                style: GoogleFonts.indieFlower(),
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: Text(
-                    'registerDialog3'.tr,
-                    style: GoogleFonts.spaceGrotesk(),
-                  ),
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(
+              'registerDialog1'.tr,
+              style: GoogleFonts.spaceGrotesk(),
+            ),
+            content: Text(
+              'registerDialog2'.tr,
+              style: GoogleFonts.indieFlower(),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text(
+                  'registerDialog3'.tr,
+                  style: GoogleFonts.spaceGrotesk(),
                 ),
-              ],
-            );
-          });
+              ),
+            ],
+          );
+        },
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    Icon iconn = isObsecure
+        ? Icon(
+            Icons.remove_red_eye_rounded,
+            color: Colors.grey,
+          )
+        : Icon(
+            Icons.remove_red_eye_outlined,
+            color: Colors.green,
+          );
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -153,12 +138,41 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 TextField(
                   controller: rpasswordController,
-                  obscureText: true,
+                  obscureText: isObsecure,
                   style: GoogleFonts.indieFlower(),
-                  keyboardType: TextInputType.number,
-                  maxLength: 6,
                   decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      icon: iconn,
+                      onPressed: () {
+                        setState(() {
+                          isObsecure = !isObsecure;
+                        });
+                      },
+                    ),
                     labelText: 'sifre'.tr,
+                    focusColor: Colors.black,
+                    labelStyle: GoogleFonts.indieFlower(
+                      color: const Color.fromARGB(255, 130, 126, 126),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                TextField(
+                  controller: rpasswordAgainController,
+                  obscureText: isObsecure,
+                  style: GoogleFonts.indieFlower(),
+                  decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      icon: iconn,
+                      onPressed: () {
+                        setState(() {
+                          isObsecure = !isObsecure;
+                        });
+                      },
+                    ),
+                    labelText: 'sifreTekrarText'.tr,
                     focusColor: Colors.black,
                     labelStyle: GoogleFonts.indieFlower(
                       color: const Color.fromARGB(255, 130, 126, 126),
