@@ -2,8 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:seydef/sayfalar/discover_page.dart';
+import 'package:seydef/sayfalar/ana_sayfa.dart';
 import 'package:seydef/sayfalar/register.dart';
+import 'package:seydef/sayfalar/sifre_unuttum_page.dart';
 import '../service/auth.dart';
 
 class LoginPage extends StatefulWidget {
@@ -20,6 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   String errorMessage = '';
   bool isButtonEnabled = false;
   bool isTurkish = true;
+  bool isObsecure = true;
 
   void checkField() {
     setState(() {
@@ -30,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> signIn() async {
     try {
-      await Auth()
+      await AuthService()
           .signIn(
             email: emailController.text.trim(),
             password: passwordController.text.trim(),
@@ -39,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
             (value) => Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => Discover(),
+                builder: (context) => const AnaSayfa(),
               ),
             ),
           );
@@ -67,6 +69,15 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    Icon iconn = isObsecure
+        ? Icon(
+            Icons.remove_red_eye_rounded,
+            color: Colors.grey,
+          )
+        : Icon(
+            Icons.remove_red_eye_outlined,
+            color: Colors.green,
+          );
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -119,11 +130,19 @@ class _LoginPageState extends State<LoginPage> {
                 TextField(
                   onChanged: (value) => checkField(),
                   controller: passwordController,
-                  obscureText: true,
+                  obscureText: isObsecure,
                   style: GoogleFonts.indieFlower(),
-                  keyboardType: TextInputType.number,
-                  maxLength: 6,
                   decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      icon: iconn,
+                      onPressed: () {
+                        setState(
+                          () {
+                            isObsecure = !isObsecure;
+                          },
+                        );
+                      },
+                    ),
                     labelText: 'sifre'.tr,
                     focusColor: Colors.black,
                     labelStyle: GoogleFonts.indieFlower(
@@ -133,6 +152,27 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(
                   height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SifreUnuttumPage(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'sifremiUnuttum'.tr,
+                        style: GoogleFonts.indieFlower(
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
@@ -197,9 +237,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        width: 30,
-                      ),
+                      const VerticalDivider(),
                       InkWell(
                         onTap: () {
                           Get.updateLocale(
