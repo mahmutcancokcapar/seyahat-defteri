@@ -3,14 +3,16 @@ class Places {
   final String title;
   final String description;
   final String date;
-  final String userEmail; //changed
+  final String userEmail;
+  final String kayitliKonum;
 
   Places({
     required this.date,
     this.id = '',
     required this.title,
     required this.description,
-    required this.userEmail, //changed
+    required this.userEmail,
+    required this.kayitliKonum,
   });
 
   Map<String, dynamic> toJson() => {
@@ -19,6 +21,7 @@ class Places {
         'description': description,
         'date': date,
         'userEmail': userEmail, //changed
+        'kayitliKonum': kayitliKonum,
       };
 
   static Places fromJson(Map<String, dynamic> json) => Places(
@@ -27,5 +30,6 @@ class Places {
         description: json['description'],
         date: json['date'],
         userEmail: json['userEmail'], //changed
+        kayitliKonum: json['kayitliKonum'],
       );
 }
