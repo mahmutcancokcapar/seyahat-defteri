@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:seydef/sayfalar/login_page.dart';
+import 'package:seydef/sayfalar/profile_page.dart';
 
 import '../service/auth.dart';
 
@@ -10,7 +11,7 @@ class NavBar extends StatelessWidget {
   NavBar({super.key});
 
   Future<void> signOut(BuildContext context) async {
-    await Auth().signOut().then(
+    await AuthService().signOut().then(
           (value) => Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -20,7 +21,7 @@ class NavBar extends StatelessWidget {
         );
   }
 
-  final User? user = Auth().currentUser;
+  final User? user = AuthService().currentUser;
 
   Widget _userUid() {
     return Text(
@@ -58,6 +59,21 @@ class NavBar extends StatelessWidget {
               ),
               fit: BoxFit.cover,
             )),
+          ),
+          ListTile(
+            leading: const Icon(Icons.person_outline_rounded),
+            title: Text(
+              'profil'.tr,
+              style: GoogleFonts.spaceGrotesk(),
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ProfilPage(),
+                ),
+              );
+            },
           ),
           ListTile(
             leading: const Icon(Icons.exit_to_app),
