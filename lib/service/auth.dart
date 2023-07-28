@@ -1,9 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-class Auth {
+class AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   User? get currentUser => _firebaseAuth.currentUser;
+
+  String? get userUID => _firebaseAuth
+      .currentUser?.uid; // Kullanıcının UID'sini almak için ekledik
 
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
