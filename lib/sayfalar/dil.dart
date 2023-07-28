@@ -11,7 +11,7 @@ class Dil extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         'tr_TR': {
-          'baslik': 'Seyahat\nDefterinize',
+          'baslik': 'Seyahat\nDefteri',
           'hg': 'HOŞGELDİNİZ!',
           'emailAdres': 'E-Mail adresiniz',
           'sifre': 'Şifreniz',
@@ -64,6 +64,34 @@ class Dil extends Translations {
           'snackBarAction': 'Tamam',
           'tumYerler': 'Tüm Yerler',
           'favoriYerler': 'Favori Yerler',
+          'kullaniciBulunamadi':
+              'Girdiğiniz E-Posta adresiyle kayıtlı bir kullanıcı bulunamadı.',
+          'hataliSifre': 'Hatalı şifre girdiniz. Lütfen tekrar deneyiniz.',
+          'gecersizEposta':
+              'Geçersiz E-Posta adresi. Lütfen geçerli bir E-Posta adresi giriniz.',
+          'hata': 'Bir hata oluştu, lütfen daha sonra tekrar deneyiniz.',
+          'sifreTekrar': 'Şifre tekrarını yanlış girdiniz.',
+          'sifreTekrarText': 'Şifreyi onayla',
+          'sifremiUnuttum': 'Şifremi Unuttum',
+          'sifreYenileBaslik':
+              'Şifrenizi yenilemek için E-Mail adresinizi girin ve ardından \'Şifreyi Yenile\' butonuna basın',
+          'sifreYenileButton': 'Şifreyi Yenile',
+          'sifreYenileDialog':
+              'Şifreni yenilemen için E-Mail adresine bir link gönderdik. Lütfen E-Mail adresini kontrol et.',
+          'uyari': 'UYARI',
+          'gizlilik':
+              'Gizliliğinizin korunması adına konumunuzu istemiyoruz, bu yüzden haritada konumunuzu göremezsiniz.',
+          'profil': 'Profilim',
+          'gonderilerim': 'Gönderilerim',
+          'koordinat': 'İşaretlenen yerin kooordinatları',
+          'konumSec': 'Haritada işaretleyerek konum seçin',
+          'yeniYerAciklama': 'Yeni bir yer eklemek için öncelikle ekranın en alt kısmında bulunan \'+\' sembolüne tıklayın. Ardından açılan ekranda eklemek istediğiniz yerin konumunu haritadan işaretleyin. Bu sayede diğer kullanıcılar paylaştığınız yerin konumunu görebilecek. Ardından bir başlık ve açıklama ekleyin. Artık paylaşabilirsiniz.',
+          'kesfetAciklama': 'Keşfet kısmında, diğer kullanıcıların paylaştığı yerleri, deneyimlerini ve farklı mekanları keşfedebilirsiniz. İsterseniz bunları favorileyip daha sonra ulaşmak için \'Profilim\' kısmındaki Favorilerim bölümüne ekleyebilir, dilerseniz de yol tarifi alabilirsiniz. Keyifli gezintiler..',
+          'searchAciklama': 'Düşünün ki bir restoran var, adını çok duydunuz ancak deneyim kazanıp öyle gitmek istiyorsunuz. İşte tam da bu amaçla yapılmış uygulamamızda \'Arama Yap\' kısmında o yeri aratabilir ve diğer insanların düşüncelerini, deneyimlerini öğrenebilir, dilerseniz de yol tarifi alabilirsiniz.',
+          'bizeUlasPageAciklama': 'Ayarlar kısmında buluna \'Bize Ulaşın\' sekmesinden her türlü görüş, öneri, istek veya şikayetiniz için bizimle iletişime geçebilirsiniz. Ayrıca silinmesini istediğiniz bir paylaşım varsa yine Ayarlar kısmındaki \'Gönderi Silme\' sekmesine gidebilirsiniz.',
+          'profilPage': 'Profil Sayfası',
+          'profilPageAciklama': 'Ekranın sol üst köşesindeki hamburger ikonuna tıklayarak Profilim sekmesini görebilir, ayrıca hesabınızdan çıkış yapabilirsiniz. Profilinizde kendinize ait paylaşımlarınızı ve favorilediğiniz yerleri görebilirsiniz.',
+          'nasilKullanilir': 'Nasıl Kullanılır',
         },
         'en_US': {
           'baslik': 'Seyahat\nDefteri',
@@ -118,6 +146,34 @@ class Dil extends Translations {
           'snackBarAction': 'Got it',
           'tumYerler': 'All Places',
           'favoriYerler': 'Favorite Places',
+          'kullaniciBulunamadi':
+              'No registered user was found with the E-Mail address you entered.',
+          'hataliSifre': 'You entered an incorrect password. Please try again.',
+          'gecersizEposta':
+              'Invalid E-Mail address. Please enter a valid E-Mail address.',
+          'hata': 'An error has occurred, please try again later.',
+          'sifreTekrar': 'You entered wrong password again.',
+          'sifreTekrarText': 'Confirm password',
+          'sifremiUnuttum': 'Forgot Password',
+          'sifreYenileBaslik':
+              'To reset your password, enter your e-mail address and then press the \'Reset Password\' button',
+          'sifreYenileButton': 'Reset Password',
+          'sifreYenileDialog':
+              'We have sent a link to your E-Mail address to reset your password. Please check your E-Mail address.',
+          'uyari': 'WARNING',
+          'gizlilik':
+              'We don\'t want your location to protect your privacy, so you can\'t see your location on the map.',
+          'profil': 'My Profile',
+          'gonderilerim': 'My Posts',
+          'koordinat': 'Coordinates of the marked place',
+          'konumSec': 'Choose a location by marking it on the map',
+          'yeniYerAciklama': 'To add a new place, first click on the \'+\' symbol at the bottom of the screen. Then mark the location of the place you want to add on the map on the screen that opens. In this way, other users will be able to see the location of the place you shared. Then add a title and description. Now you can share.',
+          'kesfetAciklama': 'In the Discover section, you can discover places shared by other users, their experiences, and different places. If you want, you can favorite them and add them to the "Favorites" section in the "My Profile" section to access them later, or you can get directions if you wish. Have a nice trip..',
+          'searchAciklama': 'Imagine that there is a restaurant, you\'ve heard the name a lot, but you want to gain experience and go like that. In our application made for this purpose, you can search for that place in the "Search" section and learn other people\'s thoughts and experiences, or you can get directions if you wish.',
+          'bizeUlasPageAciklama': 'You can contact us for any comments, suggestions, requests or complaints from the "Contact Us" tab in the Settings section. Also, if there is a post you want to be deleted, you can still go to the "Post Deletion" tab in the Settings.',
+          'profilPage': 'Profile Page',
+          'profilPageAciklama': 'You can see the My Profile tab by clicking the hamburger icon in the upper left corner of the screen, and you can also log out of your account. You can see your own posts and favorite places on your profile.',
+          'nasilKullanilir': 'How to Use',
         },
       };
 }
