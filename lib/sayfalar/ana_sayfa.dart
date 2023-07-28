@@ -61,7 +61,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                 items: items,
                 height: 60,
                 index: 0,
-                backgroundColor: Colors.transparent,
+                backgroundColor: Colors.white,
                 animationCurve: Curves.easeInOut,
                 animationDuration: const Duration(milliseconds: 300),
                 onTap: (index) => setState(() => this.index = index),
