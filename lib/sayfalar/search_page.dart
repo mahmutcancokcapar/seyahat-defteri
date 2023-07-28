@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -14,6 +15,7 @@ class _SearchPageState extends State<SearchPage> {
   TextEditingController searchController = TextEditingController();
   String _searchQuery = '';
   List<DocumentSnapshot> _searchResults = [];
+  String userUID = ''; // Kullanıcının UID'sini burada tanımlayın
 
   Future<void> _search() async {
     if (_searchQuery.trim().isEmpty) return;
@@ -73,6 +75,7 @@ class _SearchPageState extends State<SearchPage> {
           ),
           Expanded(
             child: ListView.builder(
+              physics: const BouncingScrollPhysics(),
               itemCount: _searchResults.length,
               itemBuilder: (context, index) {
                 DocumentSnapshot document = _searchResults[index];
@@ -80,7 +83,7 @@ class _SearchPageState extends State<SearchPage> {
                   padding: const EdgeInsets.all(16),
                   margin: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    border: Border.all(),
+                    border: Border.all(width: 0.5),
                     borderRadius: BorderRadius.circular(30),
                   ),
                   child: ListTile(
@@ -91,15 +94,38 @@ class _SearchPageState extends State<SearchPage> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    subtitle: Text(
-                      document['userEmail'] +
-                          ' ~ ' +
-                          document['date'] +
-                          '\n' +
-                          document['description'],
-                      style: GoogleFonts.indieFlower(
-                        fontSize: 15,
-                      ),
+                    subtitle: Column(
+                      children: [
+                        Text(
+                          document['userEmail'] +
+                              ' ~ ' +
+                              document['date'] +
+                              '\n' +
+                              document['description'],
+                          style: GoogleFonts.indieFlower(
+                            fontSize: 15,
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            const Spacer(),
+                            IconButton(
+                              onPressed: () async {
+                                String googleMapsUrl =
+                                    'https://www.google.com/maps/search/?api=1&query=${document['kayitliKonum']}';
+                                if (await canLaunch(googleMapsUrl)) {
+                                  await launch(googleMapsUrl);
+                                } else {
+                                  throw 'Google Haritalar açılamadı.';
+                                }
+                              },
+                              icon: Icon(
+                                Icons.arrow_outward_outlined,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 );
