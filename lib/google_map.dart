@@ -2,6 +2,9 @@ import 'dart:async';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
+
+import 'main.dart';
 
 class Map extends StatefulWidget {
   const Map({super.key});
@@ -45,7 +48,6 @@ class MapState extends State<Map> {
         mapType: MapType.normal,
         onTap: _handleTap,
         markers: Set.from(myMarker),
-        myLocationEnabled: true,
         compassEnabled: true,
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
@@ -57,7 +59,10 @@ class MapState extends State<Map> {
   }
 
   void _handleTap(LatLng tappedPoint) {
-    print(tappedPoint);
+    final locationProvider =
+        Provider.of<LocationProvider>(context, listen: false);
+    locationProvider.updateLocation(tappedPoint);
+
     setState(() {
       myMarker = [];
       myMarker.add(
