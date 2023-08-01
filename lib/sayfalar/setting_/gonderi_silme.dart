@@ -28,7 +28,9 @@ class _GonderiSilmeState extends State<GonderiSilme> {
         "Silmek istediğim gönderinin başlığı -> $silinmekIstenenBaslik\n--------------------\n$aciklama\n--------------------\nGönderi sahibi -> $hesap\n--------------------\n$eposta";
     String subjectText = "Gönderi Silme";
     final uri = 'mailto:$mailTo?subject=$subjectText&body=$dummyMessage';
+    // ignore: deprecated_member_use
     if (await canLaunch(uri)) {
+      // ignore: deprecated_member_use
       await launch(uri);
     } else {
       throw 'Could not launch $uri';
