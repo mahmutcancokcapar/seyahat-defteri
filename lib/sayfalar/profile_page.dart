@@ -38,6 +38,7 @@ class _ProfilPageState extends State<ProfilPage>
         userEmail = user.email!;
       });
     } else {
+      // ignore: avoid_print
       print('Kullanıcı oturumu açmamış.');
     }
     return Scaffold(
@@ -92,7 +93,7 @@ class _ProfilPageState extends State<ProfilPage>
               labelColor: Colors.black,
               unselectedLabelColor: Colors.grey,
               controller: _tabController,
-              tabs: [
+              tabs: const [
                 Tab(
                   icon: Icon(
                     Icons.view_comfy_alt_outlined,
@@ -113,7 +114,7 @@ class _ProfilPageState extends State<ProfilPage>
           Expanded(
             child: TabBarView(
               controller: _tabController,
-              children: [
+              children: const [
                 Gonderilerim(),
                 FavoritePlaces(),
               ],
