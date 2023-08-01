@@ -8,7 +8,11 @@ class PlaceCard extends StatefulWidget {
   final QueryDocumentSnapshot doc;
   final String userUID; // User UID'yi almak için parametre olarak ekledik
 
-  PlaceCard({required this.onTap, required this.doc, required this.userUID});
+  const PlaceCard(
+      {super.key,
+      required this.onTap,
+      required this.doc,
+      required this.userUID});
 
   @override
   State<PlaceCard> createState() => _PlaceCardState();
@@ -18,7 +22,9 @@ class _PlaceCardState extends State<PlaceCard> {
   void _openInGoogleMaps() async {
     String googleMapsUrl =
         'https://www.google.com/maps/search/?api=1&query=${widget.doc['kayitliKonum']}';
+    // ignore: deprecated_member_use
     if (await canLaunch(googleMapsUrl)) {
+      // ignore: deprecated_member_use
       await launch(googleMapsUrl);
     } else {
       throw 'Google Haritalar açılamadı.';
@@ -96,22 +102,41 @@ class _PlaceCardState extends State<PlaceCard> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const SizedBox(
-                height: 10,
-              ),
               SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      widget.doc['title'],
-                      style: GoogleFonts.spaceGrotesk(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      overflow: TextOverflow.ellipsis,
+                    Row(
+                      children: [
+                        IconButton(
+                          onPressed: _toggleFavorite,
+                          icon: Icon(
+                            isFavorite ? Icons.favorite : Icons.favorite_border,
+                            color: isFavorite ? Colors.red : Colors.grey,
+                          ),
+                        ),
+                        SingleChildScrollView(
+                          physics: const BouncingScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              Text(
+                                widget.doc['title'],
+                                style: GoogleFonts.spaceGrotesk(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: _openInGoogleMaps,
+                          icon: const Icon(Icons.arrow_outward_outlined),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -120,7 +145,6 @@ class _PlaceCardState extends State<PlaceCard> {
                 padding: EdgeInsets.only(
                   left: 50,
                   right: 50,
-                  bottom: 5,
                 ),
                 child: Divider(),
               ),
@@ -149,22 +173,6 @@ class _PlaceCardState extends State<PlaceCard> {
                   right: 50,
                 ),
                 child: Divider(),
-              ),
-              Row(
-                children: [
-                  IconButton(
-                    onPressed: _toggleFavorite,
-                    icon: Icon(
-                      isFavorite ? Icons.favorite : Icons.favorite_border,
-                      color: isFavorite ? Colors.red : Colors.grey,
-                    ),
-                  ),
-                  const Spacer(),
-                  IconButton(
-                    onPressed: _openInGoogleMaps,
-                    icon: Icon(Icons.arrow_outward_outlined),
-                  ),
-                ],
               ),
               const SizedBox(
                 height: 5,
