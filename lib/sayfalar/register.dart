@@ -19,7 +19,7 @@ class _RegisterPageState extends State<RegisterPage> {
   TextEditingController remailController = TextEditingController();
   TextEditingController rpasswordController = TextEditingController();
   TextEditingController rpasswordAgainController = TextEditingController();
-  bool _isLoading = false;
+  final bool _isLoading = false;
   String errorMessage = '';
   bool isObsecure = true;
 
@@ -33,6 +33,7 @@ class _RegisterPageState extends State<RegisterPage> {
         );
         await userCredential.user!.sendEmailVerification();
         // Kayıt başarılı, doğrulama epostası gönderildi
+        // ignore: use_build_context_synchronously
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -44,7 +45,7 @@ class _RegisterPageState extends State<RegisterPage> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(errorMessage),
-            duration: Duration(seconds: 3),
+            duration: const Duration(seconds: 3),
           ),
         );
       }
@@ -80,20 +81,24 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     Icon iconn = isObsecure
-        ? Icon(
+        ? const Icon(
             Icons.remove_red_eye_rounded,
             color: Colors.grey,
           )
-        : Icon(
+        : const Icon(
             Icons.remove_red_eye_outlined,
             color: Colors.green,
           );
     return Scaffold(
-      body: Container(
+      body: SizedBox(
         width: double.infinity,
         height: double.infinity,
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.only(
+            left: 16,
+            right: 16,
+            top: 16,
+          ),
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: Column(
@@ -103,8 +108,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 Text(
                   'baslik'.tr,
-                  style: GoogleFonts.indieFlower(
-                    fontSize: 40,
+                  style: GoogleFonts.tangerine(
+                    fontSize: 50,
                   ),
                   textAlign: TextAlign.center,
                 ),
