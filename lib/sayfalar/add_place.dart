@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -42,6 +43,25 @@ class _AddPlaceState extends State<AddPlace> {
   }
 
   String? selectedValue;
+  InterstitialAd? _interstitialAd;
+  void _loadInterstitialAd() {
+    InterstitialAd.load(
+      adUnitId:
+          "ca-app-pub-7677750212299055/2054180324", // Geçiş reklam birim kimliğinizi burada
+      request: const AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (ad) {
+          setState(() {
+            _interstitialAd = ad;
+          });
+        },
+        onAdFailedToLoad: (error) {
+          // ignore: avoid_print
+          print('InterstitialAd failed to load: $error');
+        },
+      ),
+    );
+  }
 
   List<String> sehirler = [
     'Adana',
@@ -131,6 +151,7 @@ class _AddPlaceState extends State<AddPlace> {
   void initState() {
     super.initState();
     selectedValue = sehirler[0];
+    _loadInterstitialAd();
   }
 
   @override
@@ -142,11 +163,10 @@ class _AddPlaceState extends State<AddPlace> {
 
     final LatLng? selectedLocation = locationProvider.selectedLocation;
 
-    String kayitliKonum = '${selectedLocation?.latitude}' +
-        ', ' +
-        '${selectedLocation?.longitude}';
+    String kayitliKonum =
+        '${selectedLocation?.latitude}, ${selectedLocation?.longitude}';
 
-    void _onButtonPressed() {
+    void onButtonPressed() {
       if (isButtonEnabled) {
         addPlace(
           title: baslikController.text,
@@ -161,7 +181,30 @@ class _AddPlaceState extends State<AddPlace> {
       }
     }
 
-    void _checkButtonstate() {
+    void showInterstitialAdThenSubmit() {
+      if (_interstitialAd != null) {
+        _interstitialAd!.show();
+
+        _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
+          onAdDismissedFullScreenContent: (ad) {
+            onButtonPressed(); // Reklam kapatıldıktan sonra, işlemi tamamlamak için _onButtonPressed metodunu çağırın.
+          },
+          onAdFailedToShowFullScreenContent: (ad, error) {
+            // ignore: avoid_print
+            print('InterstitialAd failed to show full screen content: $error');
+            onButtonPressed(); // Reklam gösterilemediğinde de işlemi tamamlamak için _onButtonPressed metodunu çağırın.
+          },
+        );
+
+        _interstitialAd =
+            null; // Reklamın tekrar kullanılabilmesi için referansı boşaltın
+      } else {
+        // Reklam yüklenmediyse, yine de işlemi tamamlayabiliriz
+        onButtonPressed();
+      }
+    }
+
+    void checkButtonstate() {
       setState(
         () {
           if (baslikController.text.isNotEmpty &&
@@ -215,7 +258,7 @@ class _AddPlaceState extends State<AddPlace> {
                 },
               );
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.question_mark_outlined,
               color: Colors.grey,
             ),
@@ -241,157 +284,155 @@ class _AddPlaceState extends State<AddPlace> {
             child: ListView(
               physics: const BouncingScrollPhysics(),
               children: [
-                Container(
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      children: [
-                        Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            border: Border.all(width: 0.5),
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                Text(
-                                  'koordinat'.tr,
-                                  style: GoogleFonts.spaceGrotesk(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const Divider(),
-                                SingleChildScrollView(
-                                  physics: const BouncingScrollPhysics(),
-                                  scrollDirection: Axis.horizontal,
-                                  child: Row(
-                                    children: [
-                                      // ignore: unnecessary_null_comparison
-                                      selectedLocation != null
-                                          ? Text(
-                                              '${selectedLocation.latitude}' +
-                                                  ',' +
-                                                  '${selectedLocation.longitude}',
-                                              style: GoogleFonts.spaceGrotesk(),
-                                            )
-                                          : Text(
-                                              'konumSec'.tr,
-                                              style: GoogleFonts.spaceGrotesk(),
-                                            ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          border: Border.all(width: 0.5),
+                          borderRadius: BorderRadius.circular(30),
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          date1,
-                          style: GoogleFonts.spaceGrotesk(),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        TextField(
-                          onChanged: (value) => _checkButtonstate(),
-                          controller: baslikController,
-                          maxLines: 1,
-                          maxLength: 50,
-                          style: GoogleFonts.spaceGrotesk(),
-                          decoration: InputDecoration(
-                            labelText: 'addPlaceBaslik'.tr,
-                            border: const OutlineInputBorder(),
-                            focusColor: Colors.black,
-                            labelStyle: GoogleFonts.indieFlower(
-                              color: const Color.fromARGB(255, 130, 126, 126),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        TextField(
-                          onChanged: (value) => _checkButtonstate(),
-                          controller: aciklamaController,
-                          maxLines: 1,
-                          maxLength: 3000,
-                          style: GoogleFonts.spaceGrotesk(),
-                          decoration: InputDecoration(
-                            labelText: 'addPlaceAciklama'.tr,
-                            border: const OutlineInputBorder(),
-                            focusColor: Colors.black,
-                            labelStyle: GoogleFonts.indieFlower(
-                              color: const Color.fromARGB(255, 130, 126, 126),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        SizedBox(
-                          width: double.infinity,
-                          child: DropdownButtonFormField<String>(
-                            decoration: const InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.grey,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: [
+                              Text(
+                                'koordinat'.tr,
+                                style: GoogleFonts.spaceGrotesk(
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.grey,
+                              const Divider(),
+                              SingleChildScrollView(
+                                physics: const BouncingScrollPhysics(),
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  children: [
+                                    // ignore: unnecessary_null_comparison
+                                    selectedLocation != null
+                                        ? Text(
+                                            '${selectedLocation.latitude},${selectedLocation.longitude}',
+                                            style: GoogleFonts.spaceGrotesk(),
+                                          )
+                                        : Text(
+                                            'konumSec'.tr,
+                                            style: GoogleFonts.spaceGrotesk(),
+                                          ),
+                                  ],
                                 ),
                               ),
-                            ),
-                            isExpanded: true,
-                            items: sehirler.map((String value) {
-                              return DropdownMenuItem(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                            onChanged: (newValue) {
-                              setState(() {
-                                selectedValue = newValue!;
-                              });
-                            },
-                            value: selectedValue,
+                            ],
                           ),
                         ),
-                        const SizedBox(height: 20,),
-                        Row(
-                          children: [
-                            const Spacer(),
-                            Column(
-                              children: [
-                                ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color.fromARGB(
-                                        147, 179, 117, 186),
-                                  ),
-                                  onPressed: isButtonEnabled &&
-                                          locationProvider.isLocationSelected
-                                      ? _onButtonPressed
-                                      : null,
-                                  child: Text(
-                                    '$userEmail\n${'addPlaceButton'.tr}', // changed
-                                    style: GoogleFonts.spaceGrotesk(),
-                                    overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const Spacer(),
-                          ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        date1,
+                        style: GoogleFonts.spaceGrotesk(),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      TextField(
+                        onChanged: (value) => checkButtonstate(),
+                        controller: baslikController,
+                        maxLines: 1,
+                        maxLength: 50,
+                        style: GoogleFonts.spaceGrotesk(),
+                        decoration: InputDecoration(
+                          labelText: 'addPlaceBaslik'.tr,
+                          border: const OutlineInputBorder(),
+                          focusColor: Colors.black,
+                          labelStyle: GoogleFonts.indieFlower(
+                            color: const Color.fromARGB(255, 130, 126, 126),
+                          ),
                         ),
-                      ],
-                    ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      TextField(
+                        onChanged: (value) => checkButtonstate(),
+                        controller: aciklamaController,
+                        maxLines: 1,
+                        maxLength: 3000,
+                        style: GoogleFonts.spaceGrotesk(),
+                        decoration: InputDecoration(
+                          labelText: 'addPlaceAciklama'.tr,
+                          border: const OutlineInputBorder(),
+                          focusColor: Colors.black,
+                          labelStyle: GoogleFonts.indieFlower(
+                            color: const Color.fromARGB(255, 130, 126, 126),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: DropdownButtonFormField<String>(
+                          decoration: const InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.grey,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ),
+                          isExpanded: true,
+                          items: sehirler.map((String value) {
+                            return DropdownMenuItem(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          onChanged: (newValue) {
+                            setState(() {
+                              selectedValue = newValue!;
+                            });
+                          },
+                          value: selectedValue,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        children: [
+                          const Spacer(),
+                          Column(
+                            children: [
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor:
+                                      const Color.fromARGB(147, 179, 117, 186),
+                                ),
+                                onPressed: isButtonEnabled &&
+                                        locationProvider.isLocationSelected
+                                    ? showInterstitialAdThenSubmit
+                                    : null,
+                                child: Text(
+                                  '$userEmail\n${'addPlaceButton'.tr}', // changed
+                                  style: GoogleFonts.spaceGrotesk(),
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const Spacer(),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ],
