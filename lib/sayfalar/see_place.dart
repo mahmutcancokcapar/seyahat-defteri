@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:seydef/service/auth.dart';
 
 class SeePlace extends StatefulWidget {
-  SeePlace({required this.doc, Key? key}) : super(key: key);
+  const SeePlace({required this.doc, Key? key}) : super(key: key);
   final QueryDocumentSnapshot doc;
 
   @override
@@ -43,7 +43,7 @@ class _SeePlaceState extends State<SeePlace> {
   final User? user = AuthService().currentUser;
 
   final snackBar = SnackBar(
-    content: Text('Aktif kullanıcı ile girilen E-Mail adresi uyuşmuyor.'),
+    content: const Text('Aktif kullanıcı ile girilen E-Mail adresi uyuşmuyor.'),
     action: SnackBarAction(label: 'Tamam', onPressed: () {}),
   );
 
@@ -57,10 +57,11 @@ class _SeePlaceState extends State<SeePlace> {
         .then((querySnapshot) {
       setState(() {
         comments = querySnapshot.docs
-            .map((doc) => doc.data() as Map<String, dynamic>)
+            .map((doc) => doc.data())
             .toList();
       });
     }).catchError((error) {
+      // ignore: avoid_print
       print('Yorumlar yüklenirken bir hata oluştu.');
     });
   }
@@ -82,6 +83,7 @@ class _SeePlaceState extends State<SeePlace> {
         _loadComments(); // Yorumları güncelle
       });
     }).catchError((error) {
+      // ignore: avoid_print
       print('Yorum gönderilirken hata oldu.');
     });
   }
@@ -148,8 +150,8 @@ class _SeePlaceState extends State<SeePlace> {
           Container(
             width: double.infinity,
             height: 30,
-            padding: EdgeInsets.only(left: 8),
-            decoration: BoxDecoration(
+            padding: const EdgeInsets.only(left: 8),
+            decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(10),
@@ -157,7 +159,7 @@ class _SeePlaceState extends State<SeePlace> {
               ),
               boxShadow: [
                 BoxShadow(
-                  color: const Color.fromARGB(147, 179, 117, 186),
+                  color: Color.fromARGB(147, 179, 117, 186),
                   offset: Offset(0, 3),
                 ),
               ],
@@ -180,7 +182,7 @@ class _SeePlaceState extends State<SeePlace> {
               itemBuilder: (context, index) {
                 var comment = comments[index];
                 return Container(
-                  margin: EdgeInsets.only(
+                  margin: const EdgeInsets.only(
                     bottom: 16,
                     left: 4,
                     right: 4,
@@ -196,7 +198,7 @@ class _SeePlaceState extends State<SeePlace> {
                         color: Colors.grey.withOpacity(0.5), // Gölge rengi
                         spreadRadius: 0.5, // Gölgenin yayılma boyutu
                         blurRadius: 5, // Gölgelendirme bulanıklığı
-                        offset: Offset(0, 3), // Gölgenin konumu (x, y)
+                        offset: const Offset(0, 3), // Gölgenin konumu (x, y)
                       ),
                     ],
                   ),
@@ -218,7 +220,7 @@ class _SeePlaceState extends State<SeePlace> {
               },
             ),
           ),
-          Container(
+          SizedBox(
             width: double.infinity,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -234,17 +236,17 @@ class _SeePlaceState extends State<SeePlace> {
                 decoration: InputDecoration(
                   suffixIcon: IconButton(
                     onPressed: _isCommentEmpty ? null : _sendMessage,
-                    icon: Icon(Icons.send_outlined),
+                    icon: const Icon(Icons.send_outlined),
                   ),
                   hintText: 'yorumEkle'.tr,
                   hintStyle: GoogleFonts.indieFlower(),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(width: 0.5),
+                    borderSide: const BorderSide(width: 0.5),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(width: 0.5),
+                    borderSide: const BorderSide(width: 0.5),
                   ),
                 ),
               ),
