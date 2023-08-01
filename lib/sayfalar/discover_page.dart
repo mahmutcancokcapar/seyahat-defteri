@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:seydef/sayfalar/navbar.dart';
 import 'package:seydef/sayfalar/see_place.dart';
 import 'place_card.dart';
@@ -29,6 +30,7 @@ class _DiscoverState extends State<Discover> {
   String? selectedValue;
 
   List<String> sehirler = [
+    'MC MEDYA',
     'Ankara',
     'İstanbul',
     'Gaziantep',
@@ -112,12 +114,59 @@ class _DiscoverState extends State<Discover> {
     'Düzce',
   ];
 
+  // Banner reklam için değişken tanımlamaları
+  late BannerAd _bannerAd;
+
+  // Banner reklamı oluşturmak için metod
+  void _createBannerAd() {
+    const adUnitId = "ca-app-pub-7677750212299055/5128487105";
+    _bannerAd = BannerAd(
+      size: AdSize.fullBanner,
+      adUnitId: adUnitId,
+      listener: BannerAdListener(onAdLoaded: (_) {
+        // ignore: avoid_print
+        print("Banner Ad loaded");
+      }, onAdFailedToLoad: (Ad ad, LoadAdError error) {
+        // ignore: avoid_print
+        print("Banner Ad failed to load: $error");
+      }),
+      request: const AdRequest(),
+    );
+    _bannerAd.load();
+  }
+
   @override
   void initState() {
     super.initState();
-    // Kullanıcının UID'sini alın
     _getUserUID();
     selectedValue = sehirler[0];
+    _createBannerAd();
+    _loadInterstitialAd();
+  }
+
+  void _loadInterstitialAd() {
+    InterstitialAd.load(
+      adUnitId:
+          "ca-app-pub-7677750212299055/2054180324", // Geçiş reklam birim kimliğinizi buraya ekleyin
+      request: const AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (ad) {
+          _interstitialAd = ad;
+        },
+        onAdFailedToLoad: (error) {
+          // ignore: avoid_print
+          print('InterstitialAd failed to load: $error');
+        },
+      ),
+    );
+  }
+
+  InterstitialAd? _interstitialAd;
+
+  @override
+  void dispose() {
+    _bannerAd.dispose();
+    super.dispose();
   }
 
   Future _showBottomSheet(BuildContext context) {
@@ -146,12 +195,12 @@ class _DiscoverState extends State<Discover> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(
+                const Padding(
+                  padding: EdgeInsets.only(
                     left: 50,
                     right: 50,
                   ),
-                  child: const Divider(),
+                  child: Divider(),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 12, right: 12),
@@ -204,12 +253,12 @@ class _DiscoverState extends State<Discover> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(
+                const Padding(
+                  padding: EdgeInsets.only(
                     left: 50,
                     right: 50,
                   ),
-                  child: const Divider(),
+                  child: Divider(),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 12, right: 12),
@@ -262,12 +311,12 @@ class _DiscoverState extends State<Discover> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(
+                const Padding(
+                  padding: EdgeInsets.only(
                     left: 50,
                     right: 50,
                   ),
-                  child: const Divider(),
+                  child: Divider(),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 12, right: 12),
@@ -320,12 +369,12 @@ class _DiscoverState extends State<Discover> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(
+                const Padding(
+                  padding: EdgeInsets.only(
                     left: 50,
                     right: 50,
                   ),
-                  child: const Divider(),
+                  child: Divider(),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 12, right: 12),
@@ -378,12 +427,12 @@ class _DiscoverState extends State<Discover> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(
+                const Padding(
+                  padding: EdgeInsets.only(
                     left: 50,
                     right: 50,
                   ),
-                  child: const Divider(),
+                  child: Divider(),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 12, right: 12),
@@ -462,30 +511,28 @@ class _DiscoverState extends State<Discover> {
                         onTap: () {
                           _showBottomSheet2(context);
                         },
-                        child: Container(
-                          child: Column(
-                            children: [
-                              Container(
-                                child: Icon(
-                                  Icons.donut_small_outlined,
-                                  size: 50,
-                                  color: Colors.deepPurple,
-                                ),
-                                width: 50,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(25),
-                                ),
+                        child: Column(
+                          children: [
+                            Container(
+                              width: 50,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(25),
                               ),
-                              const SizedBox(
-                                height: 5,
+                              child: const Icon(
+                                Icons.donut_small_outlined,
+                                size: 50,
+                                color: Colors.deepPurple,
                               ),
-                              Text(
-                                'discoverPageAppBar'.tr,
-                                style: GoogleFonts.spaceGrotesk(fontSize: 12),
-                              ),
-                            ],
-                          ),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              'discoverPageAppBar'.tr,
+                              style: GoogleFonts.spaceGrotesk(fontSize: 12),
+                            ),
+                          ],
                         ),
                       ),
                       const VerticalDivider(),
@@ -493,31 +540,29 @@ class _DiscoverState extends State<Discover> {
                         onTap: () {
                           _showBottomSheet(context);
                         },
-                        child: Container(
-                          child: Column(
-                            children: [
-                              Container(
-                                child: Icon(
-                                  Icons.add,
-                                  size: 50,
-                                  color: Colors.deepPurple,
-                                ),
-                                width: 50,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(25),
-                                  border: Border.all(color: Colors.deepPurple),
-                                ),
+                        child: Column(
+                          children: [
+                            Container(
+                              width: 50,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(25),
+                                border: Border.all(color: Colors.deepPurple),
                               ),
-                              const SizedBox(
-                                height: 5,
+                              child: const Icon(
+                                Icons.add,
+                                size: 50,
+                                color: Colors.deepPurple,
                               ),
-                              Text(
-                                'addPlaceAppBar'.tr,
-                                style: GoogleFonts.spaceGrotesk(fontSize: 12),
-                              ),
-                            ],
-                          ),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              'addPlaceAppBar'.tr,
+                              style: GoogleFonts.spaceGrotesk(fontSize: 12),
+                            ),
+                          ],
                         ),
                       ),
                       const VerticalDivider(),
@@ -525,30 +570,28 @@ class _DiscoverState extends State<Discover> {
                         onTap: () {
                           _showBottomSheet3(context);
                         },
-                        child: Container(
-                          child: Column(
-                            children: [
-                              Container(
-                                child: Icon(
-                                  Icons.search,
-                                  size: 50,
-                                  color: Colors.deepPurple,
-                                ),
-                                width: 50,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(25),
-                                ),
+                        child: Column(
+                          children: [
+                            Container(
+                              width: 50,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(25),
                               ),
-                              const SizedBox(
-                                height: 5,
+                              child: const Icon(
+                                Icons.search,
+                                size: 50,
+                                color: Colors.deepPurple,
                               ),
-                              Text(
-                                'searchPageAppBar'.tr,
-                                style: GoogleFonts.spaceGrotesk(fontSize: 12),
-                              ),
-                            ],
-                          ),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              'searchPageAppBar'.tr,
+                              style: GoogleFonts.spaceGrotesk(fontSize: 12),
+                            ),
+                          ],
                         ),
                       ),
                       const VerticalDivider(),
@@ -556,30 +599,28 @@ class _DiscoverState extends State<Discover> {
                         onTap: () {
                           _showBottomSheet4(context);
                         },
-                        child: Container(
-                          child: Column(
-                            children: [
-                              Container(
-                                child: Icon(
-                                  Icons.contact_support_outlined,
-                                  size: 50,
-                                  color: Colors.deepPurple,
-                                ),
-                                width: 50,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(25),
-                                ),
+                        child: Column(
+                          children: [
+                            Container(
+                              width: 50,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(25),
                               ),
-                              const SizedBox(
-                                height: 5,
+                              child: const Icon(
+                                Icons.contact_support_outlined,
+                                size: 50,
+                                color: Colors.deepPurple,
                               ),
-                              Text(
-                                'bizeUlas'.tr,
-                                style: GoogleFonts.spaceGrotesk(fontSize: 12),
-                              ),
-                            ],
-                          ),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              'bizeUlas'.tr,
+                              style: GoogleFonts.spaceGrotesk(fontSize: 12),
+                            ),
+                          ],
                         ),
                       ),
                       const VerticalDivider(),
@@ -587,30 +628,28 @@ class _DiscoverState extends State<Discover> {
                         onTap: () {
                           _showBottomSheet5(context);
                         },
-                        child: Container(
-                          child: Column(
-                            children: [
-                              Container(
-                                child: Icon(
-                                  Icons.person_outline_rounded,
-                                  size: 50,
-                                  color: Colors.deepPurple,
-                                ),
-                                width: 50,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(25),
-                                ),
+                        child: Column(
+                          children: [
+                            Container(
+                              width: 50,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(25),
                               ),
-                              const SizedBox(
-                                height: 5,
+                              child: const Icon(
+                                Icons.person_outline_rounded,
+                                size: 50,
+                                color: Colors.deepPurple,
                               ),
-                              Text(
-                                'profil'.tr,
-                                style: GoogleFonts.spaceGrotesk(fontSize: 12),
-                              ),
-                            ],
-                          ),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              'profil'.tr,
+                              style: GoogleFonts.spaceGrotesk(fontSize: 12),
+                            ),
+                          ],
                         ),
                       ),
                     ],
@@ -676,14 +715,40 @@ class _DiscoverState extends State<Discover> {
                       children: placesList
                           .map<Widget>((place) => PlaceCard(
                                 onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => SeePlace(
-                                        doc: place,
-                                      ),
-                                    ),
-                                  );
+                                  if (_interstitialAd != null) {
+                                    _interstitialAd!.show();
+                                    _interstitialAd!.fullScreenContentCallback =
+                                        FullScreenContentCallback(
+                                      onAdDismissedFullScreenContent: (ad) {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => SeePlace(
+                                              doc: place,
+                                            ),
+                                          ),
+                                        );
+                                        _loadInterstitialAd(); // Yeni bir reklam yüklemek için
+                                      },
+                                      onAdFailedToShowFullScreenContent:
+                                          (ad, error) {
+                                        // ignore: avoid_print
+                                        print(
+                                            'InterstitialAd failed to show full screen content: $error');
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => SeePlace(
+                                              doc: place,
+                                            ),
+                                          ),
+                                        );
+                                        _loadInterstitialAd(); // Yeni bir reklam yüklemek için
+                                      },
+                                    );
+                                    _interstitialAd =
+                                        null; // Reklamın tekrar kullanılabilmesi için referansı boşaltın
+                                  }
                                 },
                                 doc: place,
                                 userUID: userUID ?? '',
@@ -708,6 +773,12 @@ class _DiscoverState extends State<Discover> {
                   }
                 },
               ),
+            ),
+            Container(
+              alignment: Alignment.center,
+              width: _bannerAd.size.width.toDouble(),
+              height: _bannerAd.size.height.toDouble(),
+              child: AdWidget(ad: _bannerAd),
             ),
           ],
         ),
