@@ -53,12 +53,13 @@ class NavBar extends StatelessWidget {
               ),
             ),
             decoration: const BoxDecoration(
-                image: DecorationImage(
-              image: NetworkImage(
-                'https://cdn.pixabay.com/photo/2020/02/15/16/09/loveourplanet-4851331_1280.jpg',
+              image: DecorationImage(
+                image: NetworkImage(
+                  'https://cdn.pixabay.com/photo/2020/02/15/16/09/loveourplanet-4851331_1280.jpg',
+                ),
+                fit: BoxFit.cover,
               ),
-              fit: BoxFit.cover,
-            )),
+            ),
           ),
           ListTile(
             leading: const Icon(Icons.person_outline_rounded),
