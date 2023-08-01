@@ -23,9 +23,11 @@ class _BizeUlasinState extends State<BizeUlasin> {
     // Android and iOS
     String mailTo = "cokcapar@mcmedya.net"; //gönderilecek mail adresi
     String dummyMessage = "$gorus2\n--------------------\n$eposta";
-    String subjectText = "$konu2";
+    String subjectText = konu2;
     final uri = 'mailto:$mailTo?subject=$subjectText&body=$dummyMessage';
+    // ignore: deprecated_member_use
     if (await canLaunch(uri)) {
+      // ignore: deprecated_member_use
       await launch(uri);
     } else {
       throw 'Could not launch $uri';
