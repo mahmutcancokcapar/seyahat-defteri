@@ -16,6 +16,7 @@ class EmailVerification extends StatelessWidget {
 
     if (user != null && user.emailVerified) {
       // Kullanıcı doğrulandı, kayıt tamamlandı
+      // ignore: use_build_context_synchronously
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -25,6 +26,7 @@ class EmailVerification extends StatelessWidget {
     } else {
       // Kullanıcı doğrulanamadı
 
+      // ignore: use_build_context_synchronously
       showDialog(
         context: context,
         builder: (context) {
