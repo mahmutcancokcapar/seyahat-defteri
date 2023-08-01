@@ -2,9 +2,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:seydef/sayfalar/dil.dart';
-import 'package:seydef/service/widget_tree.dart';
+import 'package:seydef/sayfalar/splash_screen.dart';
 
 class LocationProvider with ChangeNotifier {
   LatLng? _selectedLocation;
@@ -21,11 +22,12 @@ class LocationProvider with ChangeNotifier {
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  MobileAds.instance.initialize();
   await Firebase.initializeApp();
   runApp(
     ChangeNotifierProvider(
       create: (context) => LocationProvider(),
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }
@@ -41,7 +43,7 @@ class MyApp extends StatelessWidget {
       fallbackLocale: Dil.varsayilan,
       debugShowCheckedModeBanner: false,
       title: 'Seyahat Defteri',
-      home: const WidgetTree(),
+      home: const SplashScreen(),
     );
   }
 }
