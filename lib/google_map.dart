@@ -71,6 +71,7 @@ class MapState extends State<Map> {
           position: tappedPoint,
           draggable: true,
           onDragEnd: (dragEndPosition) {
+            // ignore: avoid_print
             print(dragEndPosition);
           },
         ),
