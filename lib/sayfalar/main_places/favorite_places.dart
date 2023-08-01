@@ -31,7 +31,7 @@ class _FavoritePlacesState extends State<FavoritePlaces> {
             .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -97,13 +97,15 @@ class _FavoritePlacesState extends State<FavoritePlaces> {
                             onPressed: () async {
                               String googleMapsUrl =
                                   'https://www.google.com/maps/search/?api=1&query=${document['kayitliKonum']}';
+                              // ignore: deprecated_member_use
                               if (await canLaunch(googleMapsUrl)) {
+                                // ignore: deprecated_member_use
                                 await launch(googleMapsUrl);
                               } else {
                                 throw 'Google Haritalar açılamadı.';
                               }
                             },
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.arrow_outward_outlined,
                             ),
                           ),
