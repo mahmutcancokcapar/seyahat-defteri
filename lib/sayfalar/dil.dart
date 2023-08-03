@@ -95,10 +95,13 @@ class Dil extends Translations {
               'Ayarlar kısmında buluna \'Bize Ulaşın\' sekmesinden her türlü görüş, öneri, istek veya şikayetiniz için bizimle iletişime geçebilirsiniz. Ayrıca silinmesini istediğiniz bir paylaşım varsa yine Ayarlar kısmındaki \'Gönderi Silme\' sekmesine gidebilirsiniz.',
           'profilPage': 'Profil Sayfası',
           'profilPageAciklama':
-              'Ekranın sol üst köşesindeki hamburger ikonuna tıklayarak Profilim sekmesini görebilir, ayrıca hesabınızdan çıkış yapabilirsiniz. Profilinizde kendinize ait paylaşımlarınızı ve favorilediğiniz yerleri görebilirsiniz.',
+              'Ekranın sol üst köşesindeki hamburger ikonuna tıklayarak Profilim sekmesini görebilir, ayrıca hesabınızdan çıkış yapabilirsiniz. Profilinizde kendinize ait olan herkese açık paylaşımlarınızı ve favorilediğiniz yerleri görebilirsiniz. Size özel yerleri görmek için aynı yerden \'Bana Özel\' sekmesine bakabilirsiniz.',
           'nasilKullanilir': 'Nasıl Kullanılır',
           'yorumlar': 'Yorumlar',
           'yorumEkle': 'Yorum ekleyebilirsiniz',
+          'banaOzel': 'Bana Özel',
+          'herkeseAcik': 'Bu gönderi herkese açık olarak paylaşılacak',
+          'gizli': 'Bu gönderi sadece sana özel kaydedilecek',
         },
         'en_US': {
           'baslik': 'Seyahat\nDefteri',
@@ -184,10 +187,13 @@ class Dil extends Translations {
               'You can contact us for any comments, suggestions, requests or complaints from the "Contact Us" tab in the Settings section. Also, if there is a post you want to be deleted, you can still go to the "Post Deletion" tab in the Settings.',
           'profilPage': 'Profile Page',
           'profilPageAciklama':
-              'You can see the My Profile tab by clicking the hamburger icon in the upper left corner of the screen, and you can also log out of your account. You can see your own posts and favorite places on your profile.',
+              'You can see the My Profile tab by clicking the hamburger icon in the upper left corner of the screen, and you can also log out of your account. You can see your public posts and favorite places on your profile. To see the places that belong to you, you can check the "Places of Mine" tab from the same place.',
           'nasilKullanilir': 'How to Use',
           'yorumlar': 'Comments',
           'yorumEkle': 'Add comment',
+          'banaOzel': 'Places of Mine',
+          'herkeseAcik': 'This post will be shared publicly',
+          'gizli': 'This post will be saved only for you',
         },
       };
 }
