@@ -29,6 +29,13 @@ class _AddPlaceState extends State<AddPlace> {
   FirebaseAuth auth = FirebaseAuth.instance;
   final User? user = AuthService().currentUser; //changed
   bool isButtonEnabled = false;
+  bool _isToggled = false;
+
+  void toggleButton() {
+    setState(() {
+      _isToggled = !_isToggled;
+    });
+  }
 
   final snackBar = SnackBar(
     content: Text('snackBarContent'.tr),
@@ -47,7 +54,7 @@ class _AddPlaceState extends State<AddPlace> {
   void _loadInterstitialAd() {
     InterstitialAd.load(
       adUnitId:
-          "ca-app-pub-7677750212299055/2054180324", // Geçiş reklam birim kimliğinizi burada
+          "ca-app-pub-7677750212299055/2054180324", //  ca-app-pub-3940256099942544/1033173712
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (ad) {
@@ -167,16 +174,25 @@ class _AddPlaceState extends State<AddPlace> {
         '${selectedLocation?.latitude}, ${selectedLocation?.longitude}';
 
     void onButtonPressed() {
-      if (isButtonEnabled) {
-        addPlace(
-          title: baslikController.text,
-          description: aciklamaController.text,
-          date: date1,
-          userEmail: userEmail,
-          kayitliKonum: kayitliKonum,
-          sehir: selectedValue,
-        );
-
+      if (_isToggled) {
+        addData(
+            collection: 'ozel',
+            title: baslikController.text,
+            description: aciklamaController.text,
+            date: date1,
+            userEmail: userEmail,
+            kayitliKonum: kayitliKonum,
+            sehir: selectedValue);
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      } else {
+        addData(
+            collection: 'places',
+            title: baslikController.text,
+            description: aciklamaController.text,
+            date: date1,
+            userEmail: userEmail,
+            kayitliKonum: kayitliKonum,
+            sehir: selectedValue);
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
     }
@@ -403,8 +419,45 @@ class _AddPlaceState extends State<AddPlace> {
                           value: selectedValue,
                         ),
                       ),
-                      const SizedBox(
-                        height: 20,
+                      const Divider(),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
+                            children: [
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    width: 285,
+                                    height: 20,
+                                    child: SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      physics: const BouncingScrollPhysics(),
+                                      child: Text(
+                                        _isToggled
+                                            ? 'gizli'.tr
+                                            : 'herkeseAcik'.tr,
+                                        style: GoogleFonts.spaceGrotesk(
+                                          color: _isToggled
+                                              ? Colors.red
+                                              : Colors.blue,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const Spacer(),
+                              Switch(
+                                activeColor: Colors.red,
+                                value: _isToggled,
+                                onChanged: (value) {
+                                  toggleButton();
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                       Row(
                         children: [
@@ -443,7 +496,8 @@ class _AddPlaceState extends State<AddPlace> {
     );
   }
 
-  Future addPlace({
+  Future<void> addData({
+    required String collection,
     required String title,
     required String description,
     required String date,
@@ -456,7 +510,7 @@ class _AddPlaceState extends State<AddPlace> {
     if (user != null) {
       String userEmail = user.email ?? 'User email';
 
-      final docPlace = FirebaseFirestore.instance.collection('places').doc();
+      final docPlace = FirebaseFirestore.instance.collection(collection).doc();
       final places = Places(
         description: aciklamaController.text,
         title: baslikController.text,
