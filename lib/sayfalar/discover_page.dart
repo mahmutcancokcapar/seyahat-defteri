@@ -119,7 +119,8 @@ class _DiscoverState extends State<Discover> {
 
   // Banner reklamı oluşturmak için metod
   void _createBannerAd() {
-    const adUnitId = "ca-app-pub-7677750212299055/5128487105";
+    const adUnitId =
+        "ca-app-pub-7677750212299055/5128487105"; //ca-app-pub-3940256099942544/6300978111
     _bannerAd = BannerAd(
       size: AdSize.fullBanner,
       adUnitId: adUnitId,
@@ -147,7 +148,7 @@ class _DiscoverState extends State<Discover> {
   void _loadInterstitialAd() {
     InterstitialAd.load(
       adUnitId:
-          "ca-app-pub-7677750212299055/2054180324", // Geçiş reklam birim kimliğinizi buraya ekleyin
+          "ca-app-pub-7677750212299055/2054180324", // ca-app-pub-3940256099942544/1033173712
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (ad) {
@@ -521,7 +522,7 @@ class _DiscoverState extends State<Discover> {
                               ),
                               child: const Icon(
                                 Icons.donut_small_outlined,
-                                size: 50,
+                                size: 40,
                                 color: Colors.deepPurple,
                               ),
                             ),
@@ -547,11 +548,10 @@ class _DiscoverState extends State<Discover> {
                               height: 50,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(25),
-                                border: Border.all(color: Colors.deepPurple),
                               ),
                               child: const Icon(
                                 Icons.add,
-                                size: 50,
+                                size: 40,
                                 color: Colors.deepPurple,
                               ),
                             ),
@@ -580,7 +580,7 @@ class _DiscoverState extends State<Discover> {
                               ),
                               child: const Icon(
                                 Icons.search,
-                                size: 50,
+                                size: 40,
                                 color: Colors.deepPurple,
                               ),
                             ),
@@ -609,7 +609,7 @@ class _DiscoverState extends State<Discover> {
                               ),
                               child: const Icon(
                                 Icons.contact_support_outlined,
-                                size: 50,
+                                size: 40,
                                 color: Colors.deepPurple,
                               ),
                             ),
@@ -638,7 +638,7 @@ class _DiscoverState extends State<Discover> {
                               ),
                               child: const Icon(
                                 Icons.person_outline_rounded,
-                                size: 50,
+                                size: 40,
                                 color: Colors.deepPurple,
                               ),
                             ),
